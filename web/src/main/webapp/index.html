@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Telco</title>
+</head>
+<body>
+    <h1>Telco Service Application</h1>
+    <h2>Login</h2>
+
+    <h3 th:text="${successMessage}"></h3>
+
+    <form action="CheckLogin" method="POST">
+        <fieldset>
+            <legend>Login</legend>
+
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <input type="submit" value="Login">
+            <a href="registration.html">create account</a>
+        </fieldset>
+    </form>
+
+    <p th:text=" ${errorMessage}"></p>
+
+    <a href="home.html"><h3>skip and go to website</h3></a>
+
+</body>
+</html>
