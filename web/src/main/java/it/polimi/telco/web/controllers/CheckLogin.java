@@ -67,7 +67,7 @@ public class CheckLogin extends HttpServlet {
         }
 
         request.getSession().setAttribute("user", user);
-        response.sendRedirect(getServletContext().getContextPath() + "/home.html");
+        response.sendRedirect(getServletContext().getContextPath() + "/GoToHome");
 
     }
 

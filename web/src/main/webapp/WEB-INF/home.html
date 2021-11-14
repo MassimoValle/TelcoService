@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<div th:if="${not session.isEmpty()}" id="id_logout">
+    <a th:href="@{/Logout}">Logout</a>
+    <p th:text="${'Nice to see you again ' + session.user.username}"></p>
+</div>
+<div th:unless="${not session.isEmpty()}">
+    <a th:href="index.html">Login</a>
+</div>
+
+<h1>Welcome to the Telco's Home Page</h1>
+
+<table th:if="${not #lists.isEmpty(servicePackages)}">
+    <thead>
+    <tr>
+        <th>Package</th>
+        <th>Services</th>
+        <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="servicePackage : ${servicePackages}">
+        <td th:text="${servicePackage.name}">title</td>
+    </tr>
+    </tbody>
+</table>
+<p th:if="${ #lists.isEmpty(servicePackages)}">No packages yet!</p>
+
+</body>
+</html>
