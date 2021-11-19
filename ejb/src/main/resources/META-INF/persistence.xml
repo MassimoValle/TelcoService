@@ -7,6 +7,8 @@
         <jta-data-source>db_Telco_DB2</jta-data-source>
         <class>it.polimi.telco.ejb.entities.User</class>
         <class>it.polimi.telco.ejb.entities.Service</class>
+        <class>it.polimi.telco.ejb.entities.Period</class>
+        <class>it.polimi.telco.ejb.entities.Product</class>
 
     </persistence-unit>
 </persistence>

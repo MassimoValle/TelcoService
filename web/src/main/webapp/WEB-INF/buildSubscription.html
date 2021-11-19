@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Telco - Buy</title>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../css/style.css" th:href="@{/css/style.css}"/>
+
+</head>
+<body>
+
+    <h1>Telco Service Application</h1>
+    <h2>Build Subscription</h2>
+
+
+
+    <div th:if= "${errorMessage == null}">
+
+        <form action="ConfirmSubscription" method="POST">
+            <fieldset>
+                <legend>Buy form</legend>
+
+                <!-- package name -->
+                <div>
+                    <label>Package selected:</label>
+                    <label th:text="package.name">name</label>
+                </div>
+
+                <!-- periods -->
+                <div>
+                    <label for="periods"></label><select name="periods" id="periods" th:each="period : ${periods}">
+                        <option th:attr="${period}">period</option>
+                    </select>
+                </div>
+
+                <!-- products -->
+                <div th:each="product : ${products}">
+                    <label for="product"></label><input type="checkbox" id="product" name="product"><label th:text="${product.name}">product</label>
+                </div>
+
+                <!-- date -->
+                <div>
+                    <label for="date"></label><input type="date" id="date" name="date">
+                </div>
+
+                <!-- submit -->
+                <input type="submit" value="buy">
+
+            </fieldset>
+        </form>
+
+    </div>
+
+    <!-- success -->
+    <p th:text="${successMessage}">success message</p>
+
+    <!-- error -->
+    <div th:if= "${errorMessage != null}">
+        <p th:text=" ${errorMessage}">error message</p>
+        <a th:href="@{/GoToHome}"><h3>back to home</h3></a>
+    </div>
+
+
+</body>
+</html>
