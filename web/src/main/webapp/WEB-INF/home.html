@@ -2,34 +2,69 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Telco - Home</title>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../css/style.css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div th:if="${not session.isEmpty()}" id="id_logout">
-    <a th:href="@{/Logout}">Logout</a>
-    <p th:text="${'Nice to see you again ' + session.user.username}"></p>
-</div>
-<div th:unless="${not session.isEmpty()}">
-    <a th:href="index.html">Login</a>
-</div>
 
-<h1>Welcome to the Telco's Home Page</h1>
+    <!-- user logged in-->
+    <div th:if="${not session.isEmpty()}" id="id_logout">
+        <a th:href="@{/Logout}">Logout</a>
+        <p th:text="${'Nice to see you again ' + session.user.username}"></p>
+    </div>
 
-<table th:if="${not #lists.isEmpty(servicePackages)}">
-    <thead>
-    <tr>
-        <th>Package</th>
-        <th>Services</th>
-        <th>Link</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="servicePackage : ${servicePackages}">
-        <td th:text="${servicePackage.name}">title</td>
-    </tr>
-    </tbody>
-</table>
-<p th:if="${ #lists.isEmpty(servicePackages)}">No packages yet!</p>
+    <!-- user not logged in -->
+    <div th:unless="${not session.isEmpty()}">
+        <a th:href="index.html">Login</a>
+    </div>
 
-</body>
+
+
+    <h1>Telco Service Application</h1>
+    <h2>Welcome to the Telco's Home Page</h2>
+
+    <!-- if no packages exists -->
+    <p th:if="${ #lists.isEmpty(servicePackages)}">No packages yet!</p>
+
+    <!-- otherwise -->
+    <table th:if="${not #lists.isEmpty(servicePackages)}">
+
+        <thead>
+            <tr>
+                <th>Package</th>
+                <th>Services</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="servicePackage : ${servicePackages}">
+
+                <!-- title -->
+                <td th:text="${servicePackage.name}">title</td>
+
+                <!-- services -->
+                <td>
+                    <ul th:each="service : ${servicePackage.getServicesInPackage()}">
+                        <li th:text="${service.name}">service</li>
+                    </ul>
+                </td>
+
+                <!-- link -->
+                <td>
+                    <a th:href="@{/BuildSubscription}">buy</a>
+                </td>
+
+            </tr>
+        </tbody>
+
+    </table>
+
+
+    <p th:text="${successMessage}"></p>
+    <p th:text=" ${errorMessage}"></p>
+
+    </body>
 </html>

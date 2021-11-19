@@ -1,6 +1,7 @@
 package it.polimi.telco.ejb.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "ServicePackage.getAll",
@@ -20,4 +21,13 @@ public class ServicePackage {
     public void setName(String id) {
         this.name = id;
     }
+
+    public Set<Service> getServicesInPackage() {
+        return servicesInPackage;
+    }
+
+    @JoinTable(name = "SPS", joinColumns = @JoinColumn(name = "IDServicePackage"),
+                                inverseJoinColumns = @JoinColumn(name = "IDService"))
+    @ManyToMany
+    private Set<Service> servicesInPackage;
 }

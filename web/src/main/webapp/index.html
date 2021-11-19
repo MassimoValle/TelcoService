@@ -2,13 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Telco</title>
+    <title>Telco - Login</title>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          href="./css/style.css" th:href="@{/css/style.css}"/>
 </head>
 <body>
     <h1>Telco Service Application</h1>
     <h2>Login</h2>
-
-    <h3 th:text="${successMessage}"></h3>
 
     <form action="CheckLogin" method="POST">
         <fieldset>
@@ -29,6 +30,7 @@
         </fieldset>
     </form>
 
+    <p th:text="${successMessage}"></p>
     <p th:text=" ${errorMessage}"></p>
 
     <a href="GoToHome"><h3>skip and go to website</h3></a>

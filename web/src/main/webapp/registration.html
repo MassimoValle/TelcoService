@@ -2,7 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Telco - Registration</title>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          href="./css/style.css" th:href="@{/css/style.css}"/>
 </head>
 <body>
     <h1>Telco Service Application</h1>
@@ -37,9 +40,10 @@
         </fieldset>
     </form>
 
+    <p th:text="${successMessage}"></p>
     <p th:text=" ${errorMessage}"></p>
 
-    <a href="WEB-INF/home.html"><h3>skip and go to website</h3></a>
+    <a href="GoToHome"><h3>skip and go to website</h3></a>
 
 </body>
 </html>
