@@ -62,4 +62,18 @@ public class UserService {
         return newUser;
     }
 
+
+    public User getUserById(String username){
+
+        User user = em.find(User.class, username);
+
+        if (user == null) {
+            return null;
+        }
+
+        em.refresh(user);
+
+        return user;
+    }
+
 }

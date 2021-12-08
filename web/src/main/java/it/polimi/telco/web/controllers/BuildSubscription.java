@@ -1,9 +1,9 @@
 package it.polimi.telco.web.controllers;
 
 import it.polimi.telco.ejb.entities.Period;
-import it.polimi.telco.ejb.entities.Product;
+import it.polimi.telco.ejb.entities.ServicePackage;
 import it.polimi.telco.ejb.services.PeriodService;
-import it.polimi.telco.ejb.services.ProductService;
+import it.polimi.telco.ejb.services.ServicePackageService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -21,11 +21,12 @@ public class BuildSubscription extends HttpServlet {
 
     private TemplateEngine templateEngine;
 
+
+    @EJB(name = "ServicePackageServiceEJB")
+    private ServicePackageService servicePackageService;
+
     @EJB(name = "PeriodServiceEJB")
     private PeriodService periodService;
-
-    @EJB(name = "ProductServiceEJB")
-    private ProductService productService;
 
     @Override
     public void init() throws ServletException {
@@ -35,28 +36,29 @@ public class BuildSubscription extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String servicePackages = request.getParameter("servicePackages");
+        String servicePackageName = request.getParameter("servicePackageName");
 
-        if (servicePackages == null) {
+        if (servicePackageName == null) {
             invalidParameter(request, response);
             return;
         }
 
-        servicePackages = servicePackages.trim();
-        if (servicePackages.isEmpty()) {
+        servicePackageName = servicePackageName.trim();
+        if (servicePackageName.isEmpty()) {
             invalidParameter(request, response);
             return;
         }
+
+        ServicePackage servicePackage = servicePackageService.getServicePackageById(servicePackageName);
 
         List<Period> periods = periodService.getAllPeriods();
-        List<Product> products = productService.getAllProducts();
 
 
         ServletContext servletContext = getServletContext();
         final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 
+        ctx.setVariable("servicePackage", servicePackage);
         ctx.setVariable("periods", periods);
-        ctx.setVariable("products", products);
 
         templateEngine.process("/WEB-INF/buildSubscription.html", ctx, response.getWriter());
     }

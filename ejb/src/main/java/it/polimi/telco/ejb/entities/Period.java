@@ -10,11 +10,8 @@ import javax.persistence.*;
 @Entity
 public class Period {
     @Id
-    @Column(name = "Name", nullable = false, length = 50)
-    private String name;
-
     @Column(name = "Month", nullable = false)
-    private Integer month;
+    private Integer id;
 
     @Column(name = "MonthlyFee", nullable = false)
     private Integer monthlyFee;
@@ -27,19 +24,11 @@ public class Period {
         this.monthlyFee = monthlyFee;
     }
 
-    public Integer getMonth() {
-        return month;
+    public Integer getId() {
+        return id;
     }
 
-    public void setMonth(Integer month) {
-        this.month = month;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String id) {
-        this.name = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

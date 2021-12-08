@@ -1,6 +1,5 @@
 package it.polimi.telco.ejb.services;
 
-import it.polimi.telco.ejb.entities.Period;
 import it.polimi.telco.ejb.entities.Product;
 
 import javax.ejb.Stateless;

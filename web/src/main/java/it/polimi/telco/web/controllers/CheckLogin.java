@@ -2,6 +2,7 @@ package it.polimi.telco.web.controllers;
 
 import it.polimi.telco.ejb.entities.User;
 import it.polimi.telco.ejb.exceptions.CredentialsException;
+import it.polimi.telco.ejb.services.SubscriptionService;
 import it.polimi.telco.ejb.services.UserService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
 import org.thymeleaf.TemplateEngine;
@@ -20,6 +21,10 @@ public class CheckLogin extends HttpServlet {
 
     @EJB(name = "UserServiceEJB")
     private UserService userService;
+
+    @EJB(name = "SubscriptionServiceEJB")
+    private SubscriptionService subscriptionService;
+
 
     @Override
     public void init() throws ServletException {
@@ -67,7 +72,14 @@ public class CheckLogin extends HttpServlet {
         }
 
         request.getSession().setAttribute("user", user);
-        response.sendRedirect(getServletContext().getContextPath() + "/GoToHome");
+        Integer idSubscription = (Integer) request.getSession().getAttribute("idSubscription");
+
+
+        if(idSubscription == null)
+            response.sendRedirect(getServletContext().getContextPath() + "/GoToHome");
+
+        else
+            response.sendRedirect(getServletContext().getContextPath() + "/ConfirmSubscription");
 
     }
 

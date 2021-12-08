@@ -32,4 +32,16 @@ public class ServicePackageService {
 
         return servicePackages;
     }
+
+    public ServicePackage getServicePackageById(String id) {
+        ServicePackage servicePackage = em.find(ServicePackage.class, id);
+
+        if (servicePackage == null) {
+            return null;
+        }
+
+        em.refresh(servicePackage);
+
+        return servicePackage;
+    }
 }

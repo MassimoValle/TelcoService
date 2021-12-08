@@ -1,6 +1,7 @@
 package it.polimi.telco.ejb.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "Product.getAll",
@@ -10,8 +11,8 @@ import javax.persistence.*;
 @Entity
 public class Product {
     @Id
-    @Column(name = "Name", nullable = false, length = 45)
-    private String name;
+    @Column(name = "ID", nullable = false)
+    private Integer id;
 
     @Column(name = "Description", nullable = false, length = 200)
     private String description;
@@ -35,11 +36,17 @@ public class Product {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
+    public Integer getId() {
+        return id;
     }
 
-    public void setName(String id) {
-        this.name = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
+
+    @ManyToMany(mappedBy = "possibleProductsToAdd")
+    private Set<ServicePackage> packagesUseIt;
+
+    @ManyToMany(mappedBy = "productChosen")
+    private Set<Subscription> subscriptionsUseIt;
 }

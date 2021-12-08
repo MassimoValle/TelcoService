@@ -10,56 +10,70 @@
 </head>
 <body>
 
-    <h1>Telco Service Application</h1>
-    <h2>Build Subscription</h2>
+<h1>Telco Service Application</h1>
+<h2>Build Subscription</h2>
 
 
 
-    <div th:if= "${errorMessage == null}">
+<div th:if= "${errorMessage == null}">
 
-        <form action="ConfirmSubscription" method="POST">
-            <fieldset>
-                <legend>Buy form</legend>
+    <form action="SaveSubscription" method="POST">
+        <fieldset>
+            <legend>Buy form</legend>
 
-                <!-- package name -->
-                <div>
-                    <label>Package selected:</label>
-                    <label th:text="package.name">name</label>
-                </div>
+            <!-- package name -->
+            <div>
+                <label for="packageName">Package selected:</label>
+                <label id="packageName" name="packageName" th:text="${servicePackage.name}">name</label>
+                <input type="hidden" name="packageName" th:value="${servicePackage.name}"/>
+            </div>
 
-                <!-- periods -->
-                <div>
-                    <label for="periods"></label><select name="periods" id="periods" th:each="period : ${periods}">
-                        <option th:attr="${period}">period</option>
-                    </select>
-                </div>
+            <!-- periods -->
+            <div>
+                <label for="period">Period:</label>
+                <select id="period" name="period">
+                    <option th:each="period : ${periods}"
+                            th:value="${period.id}"
+                            th:text="${period.id}">
+                    </option>
+                </select>
+            </div>
 
-                <!-- products -->
-                <div th:each="product : ${products}">
-                    <label for="product"></label><input type="checkbox" id="product" name="product"><label th:text="${product.name}">product</label>
-                </div>
+            <!-- products -->
+            <div>
+                <label>Optional products:</label>
+                <table>
+                    <tr th:each="product : ${servicePackage.getPossibleProductsToAdd()}">
+                        <td>
+                            <input th:id="${product.id}" th:name="${product.id}" type="checkbox" th:value="${product.id}"/>
+                            <label th:text="${product.description}"></label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-                <!-- date -->
-                <div>
-                    <label for="date"></label><input type="date" id="date" name="date">
-                </div>
+            <!-- date -->
+            <div>
+                <label for="date">Start date:</label>
+                <input type="date" id="date" name="date">
+            </div>
 
-                <!-- submit -->
-                <input type="submit" value="buy">
+            <!-- submit -->
+            <input type="submit" value="Confirm">
 
-            </fieldset>
-        </form>
+        </fieldset>
+    </form>
 
-    </div>
+</div>
 
-    <!-- success -->
-    <p th:text="${successMessage}">success message</p>
+<!-- success -->
+<p th:text="${successMessage}">success message</p>
 
-    <!-- error -->
-    <div th:if= "${errorMessage != null}">
-        <p th:text=" ${errorMessage}">error message</p>
-        <a th:href="@{/GoToHome}"><h3>back to home</h3></a>
-    </div>
+<!-- error -->
+<div th:if= "${errorMessage != null}">
+    <p th:text=" ${errorMessage}">error message</p>
+    <a th:href="@{/GoToHome}"><h3>back to home</h3></a>
+</div>
 
 
 </body>

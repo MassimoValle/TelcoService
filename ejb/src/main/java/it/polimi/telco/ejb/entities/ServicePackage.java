@@ -26,8 +26,20 @@ public class ServicePackage {
         return servicesInPackage;
     }
 
-    @JoinTable(name = "SPS", joinColumns = @JoinColumn(name = "IDServicePackage"),
-                                inverseJoinColumns = @JoinColumn(name = "IDService"))
+    public Set<Product> getPossibleProductsToAdd() {
+        return possibleProductsToAdd;
+    }
+
+    @JoinTable(name = "SPOP", joinColumns = @JoinColumn(name = "ServicePackageID"),
+            inverseJoinColumns = @JoinColumn(name = "OptionalProductID"))
+    @ManyToMany
+    private Set<Product> possibleProductsToAdd;
+
+
+    @JoinTable(name = "SPS", joinColumns = @JoinColumn(name = "ServicePackageID"),
+                                inverseJoinColumns = @JoinColumn(name = "ServiceID"))
     @ManyToMany
     private Set<Service> servicesInPackage;
+
+
 }

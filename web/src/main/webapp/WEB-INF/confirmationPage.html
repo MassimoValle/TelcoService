@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Telco - Confirm</title>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+    <h1>Telco Service Application</h1>
+    <h2>Confirm Subscription</h2>
+
+
+    <div th:if= "${errorMessage == null}">
+
+        <form action="PlaceOrder" method="POST">
+            <fieldset>
+                <legend>Confirm form</legend>
+
+                <!-- package name -->
+                <div>
+                    <label for="packageName">Package selected:</label>
+                    <label id="packageName" name="packageName" th:text="${servicePackage.name}">name</label>
+
+                    <input type="hidden" name="packageName" th:value="${servicePackage.name}"/>
+                </div>
+
+                <!-- periods -->
+                <div>
+                    <label for="period">Period:</label>
+                    <label id="period" name="period" th:text="${period}">01</label>
+
+                    <input type="hidden" name="period" th:value="${period}"/>
+                </div>
+
+                <!-- products -->
+                <div>
+                    <label>Optional products:</label>
+                    <ul name="product" th:each="product : ${productsChosen}">
+                        <li th:text="${product.description}">product</li>
+
+                        <input type="hidden" th:value="${product.id}"/>
+                    </ul>
+
+                </div>
+
+                <!-- date -->
+                <div>
+                    <label for="date">Start date:</label>
+                    <label id="date" name="date" th:text="${date}">00-00-00</label>
+
+                    <input type="hidden" name="date" th:value="${date}"/>
+                </div>
+
+                <!-- submit -->
+                <div th:if="${logged}">
+                    <input type="submit" value="Buy">
+
+                </div>
+                <div th:unless="${logged}">
+                    <a th:href="index.html">Login</a>
+
+                </div>
+
+
+            </fieldset>
+        </form>
+
+    </div>
+
+    <!-- success -->
+    <p th:text="${successMessage}">success message</p>
+
+    <!-- error -->
+    <div th:if= "${errorMessage != null}">
+        <p th:text=" ${errorMessage}">error message</p>
+        <a th:href="@{/GoToHome}"><h3>back to home</h3></a>
+    </div>
+
+
+</body>
+</html>
