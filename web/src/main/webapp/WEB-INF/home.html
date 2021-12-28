@@ -25,21 +25,72 @@
     <h1>Telco Service Application</h1>
     <h2>Welcome to the Telco's Home Page</h2>
 
-    <!-- if no packages exists -->
-    <p th:if="${ #lists.isEmpty(servicePackages)}">No packages yet!</p>
 
-    <!-- otherwise -->
-    <table th:if="${not #lists.isEmpty(servicePackages)}">
+    <div th:if="${not #lists.isEmpty(rejectedOrders)}">
+        <h3>Rejected Orders:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>Services</th>
+                    <th>Status</th>
+                    <th>Creation Date</th>
+                    <th>link</th>
+                </tr>
+            </thead>
 
-        <thead>
+            <tbody>
+            <tr th:each="rorder : ${rejectedOrders}">
+
+                <!-- title -->
+                <td th:text="${rorder.getSubscriptionID().getServicePackageID().name}">package</td>
+
+                <!-- services -->
+                <td>
+                    <ul th:each="service : ${rorder.getSubscriptionID().getServicePackageID().getServicesInPackage()}">
+                        <li th:text="${service.name}">service</li>
+                    </ul>
+                </td>
+
+                <!-- status -->
+                <td th:text="${rorder.status}">status</td>
+
+                <!-- Creation date -->
+                <td th:text="${rorder.creationDate}">date</td>
+
+                <!-- link -->
+                <td>
+                    <form method="POST" th:action="@{/ConfirmSubscription}">
+                        <input type="hidden" name="idSubscription" th:value="${rorder.getSubscriptionID().getId()}"/>
+
+                        <button type="submit" name="submit" value="value" class="link-button">pay</button>
+                    </form>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div>
+        <h3>Packages available:</h3>
+
+        <!-- if no packages exists -->
+        <p th:if="${ #lists.isEmpty(servicePackages)}">No packages yet!</p>
+
+        <!-- otherwise -->
+        <table th:if="${not #lists.isEmpty(servicePackages)}">
+
+            <thead>
             <tr>
                 <th>Package</th>
                 <th>Services</th>
                 <th>Link</th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
+            <tbody>
             <tr th:each="servicePackage : ${servicePackages}">
 
                 <!-- title -->
@@ -58,9 +109,11 @@
                 </td>
 
             </tr>
-        </tbody>
+            </tbody>
 
-    </table>
+        </table>
+
+    </div>
 
 
     <p th:text="${successMessage}"></p>

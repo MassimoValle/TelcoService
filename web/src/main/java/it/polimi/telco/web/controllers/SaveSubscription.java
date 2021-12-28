@@ -48,18 +48,23 @@ public class SaveSubscription extends HttpServlet {
 
 
         ServicePackage servicePackage = servicePackageService.getServicePackageById(packageName);
-        Set<Product> productsChosen = new HashSet<>();
+        Set<Product> productsChosen = null;
 
-        for (Product product : servicePackage.getPossibleProductsToAdd()){
+        if(servicePackage.getPossibleProductsToAdd() != null){
 
-            try {
-                int param = Integer.parseInt(request.getParameter(product.getId().toString()));
-                if(product.getId().equals(param)) productsChosen.add(product);
+            productsChosen  = new HashSet<>();
 
-            }catch (NumberFormatException exception){
-                continue;
+            for (Product product : servicePackage.getPossibleProductsToAdd()){
+
+                try {
+                    int param = Integer.parseInt(request.getParameter(product.getId().toString()));
+                    if(product.getId().equals(param)) productsChosen.add(product);
+
+                }catch (NumberFormatException exception){
+                    continue;
+                }
+
             }
-
         }
 
         Date date = Date.valueOf(request.getParameter("date"));
@@ -77,11 +82,14 @@ public class SaveSubscription extends HttpServlet {
             return;
         }
 
-        Subscription subscription = subscriptionService.prepareSubscription(servicePackage, period, date, productsChosen);
-        Integer idSubscription = subscriptionService.submit(subscription);
-        request.getSession().setAttribute("idSubscription", idSubscription);
 
-        response.sendRedirect(getServletContext().getContextPath() + "/ConfirmSubscription");
+        Subscription subscription = subscriptionService.prepareSubscription(servicePackage, period, date, productsChosen);
+
+        Integer idSubscription = subscriptionService.submit(subscription);
+        request.setAttribute("idSubscription", idSubscription);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/ConfirmSubscription");
+        rd.forward(request, response);
     }
 
     private void invalidParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {

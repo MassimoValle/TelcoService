@@ -19,6 +19,8 @@
             <fieldset>
                 <legend>Confirm form</legend>
 
+                <input type="hidden" name="idSubscription" th:value="${idSubscription}"/>
+
                 <!-- package name -->
                 <div>
                     <label for="packageName">Package selected:</label>
@@ -38,12 +40,17 @@
                 <!-- products -->
                 <div>
                     <label>Optional products:</label>
-                    <ul name="product" th:each="product : ${productsChosen}">
-                        <li th:text="${product.description}">product</li>
+                    <p th:if="${servicePackage.getServicesInPackage().isEmpty()}">no optional products available</p>
 
-                        <input type="hidden" th:value="${product.id}"/>
-                    </ul>
+                    <div th:unless="${servicePackage.getPossibleProductsToAdd().isEmpty()}">
 
+                        <ul name="product" th:each="product : ${productsChosen}">
+                            <li th:text="${product.description}">product</li>
+
+                            <input type="hidden" th:value="${product.id}"/>
+                        </ul>
+
+                    </div>
                 </div>
 
                 <!-- date -->
@@ -60,8 +67,10 @@
 
                 </div>
                 <div th:unless="${logged}">
-                    <a th:href="index.html">Login</a>
 
+                    <a th:href="index.html">
+                        <input value="Login">
+                    </a>
                 </div>
 
 

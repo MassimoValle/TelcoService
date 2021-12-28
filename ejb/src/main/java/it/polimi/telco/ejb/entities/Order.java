@@ -7,6 +7,13 @@ import java.time.Instant;
         @Index(name = "FK_Order_SUbscription_idx", columnList = "SubscriptionID"),
         @Index(name = "FK_Order_User_idx", columnList = "UserID")
 })
+
+@NamedQueries({
+        @NamedQuery(name = "Order.getRejectedOrders",
+                query = "SELECT o FROM Order o WHERE o.userID = :usr AND o.status = 'insolvent'"),
+        @NamedQuery(name = "Order.getOrder",
+                query = "SELECT o FROM Order o WHERE o.userID = :usr AND o.subscriptionID = :sbcr")
+})
 @Entity
 public class Order {
     @Id
@@ -25,15 +32,27 @@ public class Order {
     @Column(name = "CreationDate", nullable = false)
     private Instant creationDate;
 
-    @Column(name = "Validity")
-    private Boolean validity;
+    @Column(name = "Attempt", nullable = false)
+    private Integer attempt;
 
-    public Boolean getValidity() {
-        return validity;
+    @Lob
+    @Column(name = "Status", nullable = false)
+    private String status;
+
+    public String getStatus() {
+        return status;
     }
 
-    public void setValidity(Boolean validity) {
-        this.validity = validity;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getAttempt() {
+        return attempt;
+    }
+
+    public void setAttempt(Integer attempt) {
+        this.attempt = attempt;
     }
 
     public Instant getCreationDate() {

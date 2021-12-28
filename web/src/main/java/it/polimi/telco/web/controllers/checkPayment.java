@@ -15,8 +15,8 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "checkPayment", value = "/checkPayment")
-public class checkPayment extends HttpServlet {
+@WebServlet(name = "CheckPayment", value = "/CheckPayment")
+public class CheckPayment extends HttpServlet {
 
     private TemplateEngine templateEngine;
 
@@ -43,20 +43,24 @@ public class checkPayment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-        Order order = (Order) request.getSession().getAttribute("order");
+        Order order = (Order) request.getAttribute("order");
 
         boolean positiveCheck = ExternalService.checkValidation(null);
 
-        if(positiveCheck){
-
-            order.setValidity(true);
-            orderService.submit(order);
-
-        } else {
+        if(!positiveCheck){
 
             // increment attempt
+            int attempt = orderService.incrementAttempt(order);
+
+            if(attempt >= 3){
+                // segna il lista di segnalati
+            }
         }
+        else {
+            orderService.orderPaid(order);
+        }
+
+        response.sendRedirect(getServletContext().getContextPath() + "/GoToHome");
 
     }
 

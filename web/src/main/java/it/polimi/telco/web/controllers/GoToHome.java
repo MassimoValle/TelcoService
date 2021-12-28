@@ -1,11 +1,12 @@
 package it.polimi.telco.web.controllers;
 
+import it.polimi.telco.ejb.entities.Order;
 import it.polimi.telco.ejb.entities.ServicePackage;
 import it.polimi.telco.ejb.entities.User;
-import it.polimi.telco.ejb.exceptions.CredentialsException;
 import it.polimi.telco.ejb.exceptions.NoServicePackageFoundException;
+import it.polimi.telco.ejb.exceptions.OrderException;
+import it.polimi.telco.ejb.services.OrderService;
 import it.polimi.telco.ejb.services.ServicePackageService;
-import it.polimi.telco.ejb.services.UserService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -25,6 +26,9 @@ public class GoToHome extends HttpServlet {
     @EJB(name = "ServicePackageServiceEJB")
     private ServicePackageService servicePackageService;
 
+    @EJB(name = "OrderServiceEJB")
+    private OrderService orderService;
+
     @Override
     public void init() throws ServletException {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
@@ -33,7 +37,10 @@ public class GoToHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        User user = (User) request.getSession().getAttribute("user");
+
         List<ServicePackage> servicePackages;
+        List<Order> rejectedOrders;
 
         try {
             // query db to authenticate for user
@@ -43,9 +50,18 @@ public class GoToHome extends HttpServlet {
             return;
         }
 
+        try {
+            rejectedOrders = orderService.getRejected(user);
+        } catch (OrderException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not get rejected orders");
+            return;
+        }
+
+
         ServletContext servletContext = getServletContext();
         final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 
+        ctx.setVariable("rejectedOrders", rejectedOrders);
         ctx.setVariable("servicePackages", servicePackages);
 
         templateEngine.process("/WEB-INF/home.html", ctx, response.getWriter());

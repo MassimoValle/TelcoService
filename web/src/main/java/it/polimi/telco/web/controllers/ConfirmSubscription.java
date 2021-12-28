@@ -1,7 +1,6 @@
 package it.polimi.telco.web.controllers;
 
 import it.polimi.telco.ejb.entities.Subscription;
-import it.polimi.telco.ejb.entities.User;
 import it.polimi.telco.ejb.services.SubscriptionService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
 import org.thymeleaf.TemplateEngine;
@@ -33,15 +32,27 @@ public class ConfirmSubscription extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Integer idSubscription = (Integer) request.getSession().getAttribute("idSubscription");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                    // request come from rejectedOrder in home page
+        Integer idSubscription = (Integer) request.getAttribute("idSubscription");
+
+                                    // request forward from SaveSubscription
+        if(idSubscription == null) idSubscription = Integer.parseInt(request.getParameter("idSubscription"));
+
+
+        // getting variables to fill up the html
         Subscription subscription = subscriptionService.getSubscriptionById(idSubscription);
-
-
         boolean logged = request.getSession().getAttribute("user") != null;
 
+        // adding variables to servlet context
         ServletContext servletContext = getServletContext();
         final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 
+        ctx.setVariable("idSubscription", idSubscription);
         ctx.setVariable("servicePackage", subscription.getServicePackageID());
         ctx.setVariable("period", subscription.getPeriodID());
         ctx.setVariable("productsChosen", subscription.getProductChosen());
@@ -49,11 +60,6 @@ public class ConfirmSubscription extends HttpServlet {
         ctx.setVariable("logged", logged);
 
         templateEngine.process("/WEB-INF/confirmationPage", ctx, response.getWriter());
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 

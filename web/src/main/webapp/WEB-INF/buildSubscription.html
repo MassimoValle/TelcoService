@@ -42,7 +42,10 @@
             <!-- products -->
             <div>
                 <label>Optional products:</label>
-                <table>
+
+                <p th:if="${servicePackage.getPossibleProductsToAdd().isEmpty()}">no optional products available</p>
+
+                <table th:unless="${servicePackage.getPossibleProductsToAdd().isEmpty()}">
                     <tr th:each="product : ${servicePackage.getPossibleProductsToAdd()}">
                         <td>
                             <input th:id="${product.id}" th:name="${product.id}" type="checkbox" th:value="${product.id}"/>
@@ -50,6 +53,7 @@
                         </td>
                     </tr>
                 </table>
+
             </div>
 
             <!-- date -->

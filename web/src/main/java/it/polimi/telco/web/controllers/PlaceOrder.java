@@ -1,6 +1,7 @@
 package it.polimi.telco.web.controllers;
 
 import it.polimi.telco.ejb.entities.*;
+import it.polimi.telco.ejb.exceptions.OrderException;
 import it.polimi.telco.ejb.services.OrderService;
 import it.polimi.telco.ejb.services.ServicePackageService;
 import it.polimi.telco.ejb.services.SubscriptionService;
@@ -21,6 +22,8 @@ import java.util.Set;
 @WebServlet(name = "PlaceOrder", value = "/PlaceOrder")
 public class PlaceOrder extends HttpServlet {
 
+    private TemplateEngine templateEngine;
+
     @EJB(name = "UserServiceEJB")
     private UserService userService;
 
@@ -29,6 +32,12 @@ public class PlaceOrder extends HttpServlet {
 
     @EJB(name = "OrderServiceEJB")
     private OrderService orderService;
+
+
+    @Override
+    public void init() throws ServletException {
+        this.templateEngine = ThymeleafFactory.create(getServletContext());
+    }
 
     
     @Override
@@ -39,21 +48,38 @@ public class PlaceOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Integer idSubscription = (Integer) request.getSession().getAttribute("idSubscription");
-        Subscription subscription = subscriptionService.getSubscriptionById(idSubscription);
+        Integer idSubscription = Integer.parseInt(request.getParameter("idSubscription"));
 
+        Subscription subscription = subscriptionService.getSubscriptionById(idSubscription);
         User user = (User) request.getSession().getAttribute("user");
 
-        Order order = orderService.prepareOrder(user, subscription);
+        Order order = null;
 
-        orderService.submit(order);
+        try {
+            order = orderService.getOrder(user, subscription);
+        }
+        catch (OrderException orderException){
+            invalidParameter(request, response);
+        }
 
-        request.getSession().removeAttribute("idSubscription");
-        request.getSession().setAttribute("order", order);
+        if(order == null){
 
+            order = orderService.prepareOrder(user, subscription);
+            orderService.submit(order);
+        }
 
-        response.sendRedirect(getServletContext().getContextPath() + "/checkPayment");
+        request.setAttribute("order", order);
 
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/CheckPayment");
+        dispatcher.forward(request, response);
+
+    }
+
+    private void invalidParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ServletContext servletContext = getServletContext();
+        final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+        ctx.setVariable("errorMessage", "Invalid parameter");
+        templateEngine.process("/WEB-INF/home.html", ctx, response.getWriter());
     }
 
 }
