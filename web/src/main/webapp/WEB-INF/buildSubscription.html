@@ -1,84 +1,101 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Telco - Buy</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Telco - Buy</title>
 
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../css/style.css" th:href="@{/css/style.css}"/>
+        <link rel="stylesheet" type="text/css" media="all"
+              href="../css/style.css" th:href="@{/css/style.css}"/>
 
-</head>
-<body>
+        <script>
+            function getDate(){
+                let today = new Date();
+                document.getElementById("date").value = today.getFullYear();
+            }
+        </script>
 
-<h1>Telco Service Application</h1>
-<h2>Build Subscription</h2>
+    </head>
+    <body>
 
+        <!-- user logged in-->
+        <div th:if="${session.user != null}" id="id_logout">
+            <a th:href="@{/Logout}">Logout</a>
+            <p th:text="${'Nice to see you again ' + session.user.username}"></p>
+        </div>
 
+        <!-- user not logged in -->
+        <div th:unless="${session.user != null}">
+            <a th:href="index.html">Login</a>
+        </div>
 
-<div th:if= "${errorMessage == null}">
-
-    <form action="SaveSubscription" method="POST">
-        <fieldset>
-            <legend>Buy form</legend>
-
-            <!-- package name -->
-            <div>
-                <label for="packageName">Package selected:</label>
-                <label id="packageName" name="packageName" th:text="${servicePackage.name}">name</label>
-                <input type="hidden" name="packageName" th:value="${servicePackage.name}"/>
-            </div>
-
-            <!-- periods -->
-            <div>
-                <label for="period">Period:</label>
-                <select id="period" name="period">
-                    <option th:each="period : ${periods}"
-                            th:value="${period.id}"
-                            th:text="${period.id}">
-                    </option>
-                </select>
-            </div>
-
-            <!-- products -->
-            <div>
-                <label>Optional products:</label>
-
-                <p th:if="${servicePackage.getPossibleProductsToAdd().isEmpty()}">no optional products available</p>
-
-                <table th:unless="${servicePackage.getPossibleProductsToAdd().isEmpty()}">
-                    <tr th:each="product : ${servicePackage.getPossibleProductsToAdd()}">
-                        <td>
-                            <input th:id="${product.id}" th:name="${product.id}" type="checkbox" th:value="${product.id}"/>
-                            <label th:text="${product.description}"></label>
-                        </td>
-                    </tr>
-                </table>
-
-            </div>
-
-            <!-- date -->
-            <div>
-                <label for="date">Start date:</label>
-                <input type="date" id="date" name="date">
-            </div>
-
-            <!-- submit -->
-            <input type="submit" value="Confirm">
-
-        </fieldset>
-    </form>
-
-</div>
-
-<!-- success -->
-<p th:text="${successMessage}">success message</p>
-
-<!-- error -->
-<div th:if= "${errorMessage != null}">
-    <p th:text=" ${errorMessage}">error message</p>
-    <a th:href="@{/GoToHome}"><h3>back to home</h3></a>
-</div>
+        <h1>Telco Service Application</h1>
+        <h2>Build Subscription</h2>
 
 
-</body>
+
+        <div th:if= "${errorMessage == null}">
+
+            <form action="SaveSubscription" method="POST">
+                <fieldset>
+                    <legend>Buy form</legend>
+
+                    <!-- package name -->
+                    <div>
+                        <label for="packageName">Package selected:</label>
+                        <label id="packageName" name="packageName" th:text="${servicePackage.name}">name</label>
+                        <input type="hidden" name="packageName" th:value="${servicePackage.name}"/>
+                    </div>
+
+                    <!-- periods -->
+                    <div>
+                        <label for="period">Period:</label>
+                        <select id="period" name="period">
+                            <option th:each="period : ${periods}"
+                                    th:value="${period.id}"
+                                    th:text="${period.id}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- products -->
+                    <div>
+                        <label>Optional products:</label>
+
+                        <p th:if="${servicePackage.getPossibleProductsToAdd().isEmpty()}">no optional products available</p>
+
+                        <table th:unless="${servicePackage.getPossibleProductsToAdd().isEmpty()}">
+                            <tr th:each="product : ${servicePackage.getPossibleProductsToAdd()}">
+                                <td>
+                                    <input th:id="${product.id}" th:name="${product.id}" type="checkbox" th:value="${product.id}"/>
+                                    <label th:text="${product.description}"></label>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <!-- date -->
+                    <div>
+                        <label for="date">Start date:</label>
+                        <input type="date" id="date" onload="getDate()" name="date">
+                    </div>
+
+                    <!-- submit -->
+                    <input type="submit" value="Confirm">
+
+                </fieldset>
+            </form>
+
+        </div>
+
+        <!-- success -->
+        <p th:text="${successMessage}">success message</p>
+
+        <!-- error -->
+        <div th:if= "${errorMessage != null}">
+            <p th:text=" ${errorMessage}">error message</p>
+            <a th:href="@{/GoToHome}"><h3>back to home</h3></a>
+        </div>
+
+    </body>
 </html>

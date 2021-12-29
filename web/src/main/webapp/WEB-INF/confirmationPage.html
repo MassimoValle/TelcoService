@@ -9,6 +9,17 @@
 </head>
 <body>
 
+    <!-- user logged in-->
+    <div th:if="${session.user != null}" id="id_logout">
+        <a th:href="@{/Logout}">Logout</a>
+        <p th:text="${'Nice to see you again ' + session.user.username}"></p>
+    </div>
+
+    <!-- user not logged in -->
+    <div th:unless="${session.user != null}">
+        <a th:href="index.html">Login</a>
+    </div>
+
     <h1>Telco Service Application</h1>
     <h2>Confirm Subscription</h2>
 
@@ -40,9 +51,9 @@
                 <!-- products -->
                 <div>
                     <label>Optional products:</label>
-                    <p th:if="${servicePackage.getServicesInPackage().isEmpty()}">no optional products available</p>
+                    <p th:if="${productsChosen.isEmpty()}">no optional products available</p>
 
-                    <div th:unless="${servicePackage.getPossibleProductsToAdd().isEmpty()}">
+                    <div th:unless="${productsChosen.isEmpty()}">
 
                         <ul name="product" th:each="product : ${productsChosen}">
                             <li th:text="${product.description}">product</li>
