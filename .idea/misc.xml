@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/web/pom.xml" />
         <option value="$PROJECT_DIR$/ejb/pom.xml" />
+        <option value="$PROJECT_DIR$/admin/pom.xml" />
       </list>
     </option>
   </component>

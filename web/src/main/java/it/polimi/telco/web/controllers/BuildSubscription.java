@@ -2,6 +2,7 @@ package it.polimi.telco.web.controllers;
 
 import it.polimi.telco.ejb.entities.Period;
 import it.polimi.telco.ejb.entities.ServicePackage;
+import it.polimi.telco.ejb.exceptions.NoPeriodFoundException;
 import it.polimi.telco.ejb.services.PeriodService;
 import it.polimi.telco.ejb.services.ServicePackageService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
@@ -51,7 +52,16 @@ public class BuildSubscription extends HttpServlet {
 
         ServicePackage servicePackage = servicePackageService.getServicePackageById(servicePackageName);
 
-        List<Period> periods = periodService.getAllPeriods();
+        List<Period> periods;
+
+        // getting periods
+        try {
+
+            periods = periodService.getAllPeriods();
+        } catch (NoPeriodFoundException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not get periods");
+            return;
+        }
 
 
         ServletContext servletContext = getServletContext();

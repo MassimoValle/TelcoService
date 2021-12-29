@@ -1,15 +1,18 @@
 package it.polimi.telco.ejb.services;
 
+import it.polimi.telco.ejb.entities.Product;
+import it.polimi.telco.ejb.entities.Service;
 import it.polimi.telco.ejb.entities.ServicePackage;
-import it.polimi.telco.ejb.entities.User;
-import it.polimi.telco.ejb.exceptions.CredentialsException;
+import it.polimi.telco.ejb.entities.Subscription;
 import it.polimi.telco.ejb.exceptions.NoServicePackageFoundException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Stateless(name = "ServicePackageServiceEJB")
 public class ServicePackageService {
@@ -43,5 +46,24 @@ public class ServicePackageService {
         em.refresh(servicePackage);
 
         return servicePackage;
+    }
+
+    public ServicePackage prepareServicePackage(String packageName, Set<Service> services, Set<Product> products){
+
+        ServicePackage servicePackage = new ServicePackage();
+
+        servicePackage.setName(packageName);
+        servicePackage.setServicesInPackage(services);
+        servicePackage.setPossibleProductsToAdd(products);
+
+        return servicePackage;
+
+    }
+
+    public void submit(ServicePackage servicePackage) {
+
+        em.persist(servicePackage);
+
+        em.flush();
     }
 }

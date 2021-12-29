@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Telco - Sales Report</title>
+
+        <link rel="stylesheet" type="text/css" media="all"
+              href="../css/style.css" th:href="@{/css/style.css}"/>
+    </head>
+
+    <body>
+
+        <h1>Telco Service Application</h1>
+        <h2>Sales Report</h2>
+
+        <div>
+            <h3>Number of total purchases per package</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Package</th>
+                        <th>Total purchases</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="rorder : ${rejectedOrders}">
+
+                        <!-- Package -->
+                        <td th:text="${rorder.getSubscriptionID().getServicePackageID().name}">package</td>
+
+                        <!-- Total purchases -->
+                        <td th:text="${rorder.getSubscriptionID().getServicePackageID().name}">package</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>Number of total purchases per package and validity period</h3>
+        </div>
+
+        <div>
+            <h3>Total value of sales per package with and without the optional products</h3>
+        </div>
+
+        <div>
+            <h3>Average number of optional products sold together with each service package</h3>
+        </div>
+
+        <div>
+            <h3>List of insolvent users, suspended orders and alerts</h3>
+        </div>
+
+        <div>
+            <h3>Best seller optional product, i.e. the optional product with the greatest value of sales across all
+              the sold service packages</h3>
+        </div>
+
+    </body>
+</html>

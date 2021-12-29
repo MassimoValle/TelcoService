@@ -58,8 +58,12 @@ public class SaveSubscription extends HttpServlet {
             for (Product product : servicePackage.getPossibleProductsToAdd()){
 
                 try {
-                    int param = Integer.parseInt(request.getParameter(product.getId().toString()));
-                    if(product.getId().equals(param)) productsChosen.add(product);
+                    String productID = product.getId().toString();
+
+                    String param = request.getParameter("product" + productID);
+
+                    if(param == null) continue;
+                    if(param.equals("on")) productsChosen.add(product);
 
                 }catch (NumberFormatException exception){
                     continue;

@@ -44,7 +44,7 @@ public class GoToHome extends HttpServlet {
 
         // getting service packages
         try {
-            // query db to authenticate for user
+
             servicePackages = servicePackageService.getServicePackages();
         } catch (NoServicePackageFoundException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credentials");

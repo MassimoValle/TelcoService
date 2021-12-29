@@ -30,6 +30,14 @@ public class ServicePackage {
         return possibleProductsToAdd;
     }
 
+    public void setPossibleProductsToAdd(Set<Product> possibleProductsToAdd) {
+        this.possibleProductsToAdd = possibleProductsToAdd;
+    }
+
+    public void setServicesInPackage(Set<Service> servicesInPackage) {
+        this.servicesInPackage = servicesInPackage;
+    }
+
     @JoinTable(name = "SPOP", joinColumns = @JoinColumn(name = "ServicePackageID"),
             inverseJoinColumns = @JoinColumn(name = "OptionalProductID"))
     @ManyToMany
