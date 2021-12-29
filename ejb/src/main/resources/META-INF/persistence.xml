@@ -16,5 +16,7 @@
         <class>it.polimi.telco.ejb.entities.Order</class>
         <class>it.polimi.telco.ejb.entities.Subscription</class>
         <class>it.polimi.telco.ejb.entities.Order</class>
+        <class>it.polimi.telco.ejb.entities.Service</class>
+        <class>it.polimi.telco.ejb.entities.Subscription</class>
     </persistence-unit>
 </persistence>

@@ -1,6 +1,7 @@
 package it.polimi.telco.ejb.entities;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.Instant;
 
 @Table(name = "`Order`", indexes = {
@@ -30,7 +31,7 @@ public class Order {
     private Subscription subscriptionID;
 
     @Column(name = "CreationDate", nullable = false)
-    private Instant creationDate;
+    private Timestamp creationDate;
 
     @Column(name = "Attempt", nullable = false)
     private Integer attempt;
@@ -55,11 +56,11 @@ public class Order {
         this.attempt = attempt;
     }
 
-    public Instant getCreationDate() {
+    public Timestamp getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Instant creationDate) {
+    public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
 

@@ -8,6 +8,7 @@ import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Stateful(name = "SubscriptionServiceEJB")
@@ -18,13 +19,14 @@ public class SubscriptionService {
 
     public SubscriptionService() {}
 
-    public Subscription prepareSubscription(ServicePackage servicePackage, int period, Date date, Set<Product> productsChosen){
+    public Subscription prepareSubscription(ServicePackage servicePackage, int period, LocalDate date, Set<Product> productsChosen){
 
         Subscription subscription = new Subscription();
 
         subscription.setServicePackageID(servicePackage);
         subscription.setPeriodID(period);
         subscription.setStartDate(date);
+        subscription.setDeactivationDate(date.plusMonths(period));
         subscription.setProductChosen(productsChosen);
 
         return subscription;

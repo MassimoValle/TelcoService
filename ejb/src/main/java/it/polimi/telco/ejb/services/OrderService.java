@@ -9,6 +9,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @Stateless(name = "OrderServiceEJB")
@@ -60,6 +62,15 @@ public class OrderService {
         order.setUserID(user);
         order.setSubscriptionID(subscription);
 
+        order.setAttempt(0);
+        order.setStatus("insolvent");
+
+        Instant instant = Instant.now();
+        Timestamp timestamp = Timestamp.from(instant);
+
+        order.setCreationDate(timestamp);
+
+
         return order;
 
     }
@@ -69,8 +80,6 @@ public class OrderService {
         int attempt = order.getAttempt();
         attempt++;
         order.setAttempt(attempt);
-
-        order.setStatus("insolvent");
 
         em.merge(order);
 

@@ -11,6 +11,10 @@ import java.util.Set;
 @Entity
 public class Service {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ServiceID", nullable = false)
+    private Integer id;
+
     @Lob
     @Column(name = "Name", nullable = false)
     private String name;
@@ -19,8 +23,16 @@ public class Service {
         return name;
     }
 
-    public void setName(String id) {
-        this.name = id;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @ManyToMany(mappedBy = "servicesInPackage")

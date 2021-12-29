@@ -2,12 +2,14 @@ package it.polimi.telco.ejb.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Table(name = "Subscription", indexes = {
         @Index(name = "FK_Subscription_ServicePackage_idx", columnList = "ServicePackageID")
 })
+
 @Entity
 public class Subscription {
     @Id
@@ -16,7 +18,7 @@ public class Subscription {
     private Integer id;
 
     @Column(name = "StartDate", nullable = false)
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "TotalPrice", precision = 5, scale = 2)
     private BigDecimal totalPrice;
@@ -27,6 +29,17 @@ public class Subscription {
 
     @Column(name = "PeriodID", nullable = false)
     private Integer periodID;
+
+    @Column(name = "DeactivationDate")
+    private LocalDate deactivationDate;
+
+    public LocalDate getDeactivationDate() {
+        return deactivationDate;
+    }
+
+    public void setDeactivationDate(LocalDate deactivationDate) {
+        this.deactivationDate = deactivationDate;
+    }
 
     public Integer getPeriodID() {
         return periodID;
@@ -52,11 +65,11 @@ public class Subscription {
         this.totalPrice = totalPrice;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -69,6 +82,12 @@ public class Subscription {
     }
 
 
+
+    @JoinTable(name = "SOP", joinColumns = @JoinColumn(name = "SubscriptionID"),
+            inverseJoinColumns = @JoinColumn(name = "OptionalProductID"))
+    @ManyToMany
+    private Set<Product> productChosen;
+
     public Set<Product> getProductChosen() {
         return productChosen;
     }
@@ -76,9 +95,4 @@ public class Subscription {
     public void setProductChosen(Set<Product> productChosen) {
         this.productChosen = productChosen;
     }
-
-    @JoinTable(name = "SOP", joinColumns = @JoinColumn(name = "SubscriptionID"),
-            inverseJoinColumns = @JoinColumn(name = "OptionalProductID"))
-    @ManyToMany
-    private Set<Product> productChosen;
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -67,7 +68,7 @@ public class SaveSubscription extends HttpServlet {
             }
         }
 
-        Date date = Date.valueOf(request.getParameter("date"));
+        LocalDate date = LocalDate.parse(request.getParameter("date"));
 
 
         if (packageName == null || date == null) {

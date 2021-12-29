@@ -40,8 +40,9 @@ public class GoToHome extends HttpServlet {
         User user = (User) request.getSession().getAttribute("user");
 
         List<ServicePackage> servicePackages;
-        List<Order> rejectedOrders;
+        List<Order> rejectedOrders = null;
 
+        // getting service packages
         try {
             // query db to authenticate for user
             servicePackages = servicePackageService.getServicePackages();
@@ -50,19 +51,25 @@ public class GoToHome extends HttpServlet {
             return;
         }
 
-        try {
-            rejectedOrders = orderService.getRejected(user);
-        } catch (OrderException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not get rejected orders");
-            return;
+
+        // getting rejected order
+        if(user != null){
+
+            try {
+                rejectedOrders = orderService.getRejected(user);
+            } catch (OrderException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not get rejected orders");
+                return;
+            }
         }
+
 
 
         ServletContext servletContext = getServletContext();
         final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 
-        ctx.setVariable("rejectedOrders", rejectedOrders);
         ctx.setVariable("servicePackages", servicePackages);
+        ctx.setVariable("rejectedOrders", rejectedOrders);
 
         templateEngine.process("/WEB-INF/home.html", ctx, response.getWriter());
 
