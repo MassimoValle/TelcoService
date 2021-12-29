@@ -78,8 +78,13 @@ public class CheckLogin extends HttpServlet {
         if(idSubscription == null)
             response.sendRedirect(getServletContext().getContextPath() + "/GoToHome");
 
-        else
-            response.sendRedirect(getServletContext().getContextPath() + "/ConfirmSubscription");
+        else{
+            request.setAttribute("idSubscription", idSubscription);
+            request.getSession().removeAttribute("idSubscription");
+
+            RequestDispatcher rd = request.getRequestDispatcher("/ConfirmSubscription");
+            rd.forward(request, response);
+        }
 
     }
 

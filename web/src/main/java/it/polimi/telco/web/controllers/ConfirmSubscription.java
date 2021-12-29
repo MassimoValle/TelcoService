@@ -59,6 +59,9 @@ public class ConfirmSubscription extends HttpServlet {
         ctx.setVariable("date", subscription.getStartDate());
         ctx.setVariable("logged", logged);
 
+        // used like cart if user is not logged
+        request.getSession().setAttribute("idSubscription", idSubscription);
+
         templateEngine.process("/WEB-INF/confirmationPage", ctx, response.getWriter());
 
     }
