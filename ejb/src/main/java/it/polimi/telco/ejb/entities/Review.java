@@ -5,6 +5,11 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
 
+@NamedQueries({
+        @NamedQuery(name = "Review.getByUser",
+                query = "SELECT r FROM Review r WHERE r.userID = :usr")
+})
+
 @Entity
 public class Review {
     @Id
