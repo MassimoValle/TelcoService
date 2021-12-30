@@ -1,7 +1,10 @@
 package it.polimi.telco.web.controllers;
 
 import it.polimi.telco.ejb.entities.Order;
+import it.polimi.telco.ejb.entities.Review;
+import it.polimi.telco.ejb.entities.User;
 import it.polimi.telco.ejb.services.OrderService;
+import it.polimi.telco.ejb.services.ReviewService;
 import it.polimi.telco.ejb.services.SubscriptionService;
 import it.polimi.telco.ejb.services.UserService;
 import it.polimi.telco.web.utils.ExternalService;
@@ -29,6 +32,9 @@ public class CheckPayment extends HttpServlet {
     @EJB(name = "OrderServiceEJB")
     private OrderService orderService;
 
+    @EJB(name = "ReviewServiceEJB")
+    private ReviewService reviewService;
+
     @Override
     public void init() throws ServletException {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
@@ -43,6 +49,7 @@ public class CheckPayment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        User user = (User) request.getSession().getAttribute("user");
         Order order = (Order) request.getAttribute("order");
 
         boolean positiveCheck = ExternalService.checkValidation(null);
@@ -53,7 +60,10 @@ public class CheckPayment extends HttpServlet {
             int attempt = orderService.incrementAttempt(order);
 
             if(attempt >= 3){
-                // segna il lista di segnalati
+
+                // add user to review list
+                Review review = reviewService.prepareReview(user, order.getSubscriptionID().getTotalPrice());
+                reviewService.submit(review);
             }
         }
         else {
