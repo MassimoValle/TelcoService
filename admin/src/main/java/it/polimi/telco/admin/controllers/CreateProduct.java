@@ -1,7 +1,6 @@
 package it.polimi.telco.admin.controllers;
 
 import it.polimi.telco.ejb.entities.Product;
-import it.polimi.telco.ejb.entities.ServicePackage;
 import it.polimi.telco.ejb.services.ProductService;
 
 import javax.ejb.EJB;
@@ -9,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @WebServlet(name = "CreateProduct", value = "/CreateProduct")
 public class CreateProduct extends HttpServlet {
@@ -25,7 +25,7 @@ public class CreateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String productDescription = request.getParameter("productDescription");
-        Integer monthlyFee = Integer.parseInt(request.getParameter("monthlyFee"));
+        BigDecimal monthlyFee = BigDecimal.valueOf(Long.parseLong(request.getParameter("monthlyFee")));
 
 
         Product product = productService.prepareProduct(productDescription, monthlyFee);

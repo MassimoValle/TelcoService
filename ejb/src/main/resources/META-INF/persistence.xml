@@ -19,5 +19,8 @@
         <class>it.polimi.telco.ejb.entities.Service</class>
         <class>it.polimi.telco.ejb.entities.Subscription</class>
         <class>it.polimi.telco.ejb.entities.Employee</class>
+        <class>it.polimi.telco.ejb.entities.Product</class>
+        <class>it.polimi.telco.ejb.entities.Period</class>
+        <class>it.polimi.telco.ejb.entities.Review</class>
     </persistence-unit>
 </persistence>

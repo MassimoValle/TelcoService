@@ -3,7 +3,6 @@ package it.polimi.telco.admin.controllers;
 import it.polimi.telco.ejb.entities.Product;
 import it.polimi.telco.ejb.entities.Service;
 import it.polimi.telco.ejb.entities.ServicePackage;
-import it.polimi.telco.ejb.entities.Subscription;
 import it.polimi.telco.ejb.exceptions.NoProductFoundException;
 import it.polimi.telco.ejb.exceptions.NoServiceFoundException;
 import it.polimi.telco.ejb.services.ProductService;

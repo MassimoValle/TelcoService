@@ -1,9 +1,7 @@
 package it.polimi.telco.ejb.services;
 
 import it.polimi.telco.ejb.entities.Period;
-import it.polimi.telco.ejb.entities.Product;
 import it.polimi.telco.ejb.exceptions.NoPeriodFoundException;
-import it.polimi.telco.ejb.exceptions.NoProductFoundException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

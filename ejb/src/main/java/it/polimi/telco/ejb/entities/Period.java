@@ -1,6 +1,7 @@
 package it.polimi.telco.ejb.entities;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @NamedQueries({
         @NamedQuery(name = "Period.getAll",
@@ -13,14 +14,14 @@ public class Period {
     @Column(name = "Month", nullable = false)
     private Integer id;
 
-    @Column(name = "MonthlyFee", nullable = false)
-    private Integer monthlyFee;
+    @Column(name = "MonthlyFee", nullable = false, precision = 5, scale = 2)
+    private BigDecimal monthlyFee;
 
-    public Integer getMonthlyFee() {
+    public BigDecimal getMonthlyFee() {
         return monthlyFee;
     }
 
-    public void setMonthlyFee(Integer monthlyFee) {
+    public void setMonthlyFee(BigDecimal monthlyFee) {
         this.monthlyFee = monthlyFee;
     }
 

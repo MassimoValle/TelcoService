@@ -3,14 +3,12 @@ package it.polimi.telco.ejb.services;
 import it.polimi.telco.ejb.entities.Product;
 import it.polimi.telco.ejb.entities.Service;
 import it.polimi.telco.ejb.entities.ServicePackage;
-import it.polimi.telco.ejb.entities.Subscription;
 import it.polimi.telco.ejb.exceptions.NoServicePackageFoundException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 

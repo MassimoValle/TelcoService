@@ -7,7 +7,6 @@ import it.polimi.telco.ejb.entities.Subscription;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Set;
 
