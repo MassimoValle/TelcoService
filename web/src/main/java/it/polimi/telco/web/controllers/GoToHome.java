@@ -37,12 +37,14 @@ public class GoToHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // coming from CheckLogin servlet or index.html page (if user click on "skip and go to website")
+
         User user = (User) request.getSession().getAttribute("user");
 
         List<ServicePackage> servicePackages;
         List<Order> rejectedOrders = null;
 
-        // getting service packages
+        // getting service packages - always
         try {
 
             servicePackages = servicePackageService.getServicePackages();
@@ -52,7 +54,7 @@ public class GoToHome extends HttpServlet {
         }
 
 
-        // getting rejected order
+        // getting rejected order - only if user is logged
         if(user != null){
 
             try {

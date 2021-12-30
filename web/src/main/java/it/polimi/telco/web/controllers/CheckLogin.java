@@ -39,6 +39,9 @@ public class CheckLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // coming from index.html
+
+
         // obtain params
         String usr = request.getParameter("username");
         String pwd = request.getParameter("password");
@@ -72,12 +75,20 @@ public class CheckLogin extends HttpServlet {
         }
 
         request.getSession().setAttribute("user", user);
+
+
+        // --------
+
+        // I've to understand if come back to order procedure or not
         Integer idSubscription = (Integer) request.getSession().getAttribute("idSubscription");
 
 
+        // if there is no pending subscription in session --> redirect to GoToHome servlet
         if(idSubscription == null)
             response.sendRedirect(getServletContext().getContextPath() + "/GoToHome");
 
+
+        // if there is a pending subscription in session --> forward to ConfirmSubscription servlet
         else{
             request.setAttribute("idSubscription", idSubscription);
             request.getSession().removeAttribute("idSubscription");

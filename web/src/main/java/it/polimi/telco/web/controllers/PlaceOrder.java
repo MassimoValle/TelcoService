@@ -48,13 +48,19 @@ public class PlaceOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // coming from confirmPage.html
+
+        // getting params
         Integer idSubscription = Integer.parseInt(request.getParameter("idSubscription"));
 
         Subscription subscription = subscriptionService.getSubscriptionById(idSubscription);
         User user = (User) request.getSession().getAttribute("user");
 
+
+        // creating order
         Order order = null;
 
+        // check if order already exists
         try {
             order = orderService.getOrder(user, subscription);
         }
@@ -62,11 +68,15 @@ public class PlaceOrder extends HttpServlet {
             invalidParameter(request, response);
         }
 
+        // if not, create it
         if(order == null){
 
             order = orderService.prepareOrder(user, subscription);
             orderService.submit(order);
         }
+
+
+        // forward to CheckPayment servlet
 
         request.setAttribute("order", order);
 

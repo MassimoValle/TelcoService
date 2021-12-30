@@ -37,6 +37,9 @@ public class BuildSubscription extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // coming from home.html
+
+        // get name of the package I want to buy
         String servicePackageName = request.getParameter("servicePackageName");
 
         if (servicePackageName == null) {
@@ -50,11 +53,13 @@ public class BuildSubscription extends HttpServlet {
             return;
         }
 
+
+        // get the package using package's name
         ServicePackage servicePackage = servicePackageService.getServicePackageById(servicePackageName);
 
+        // getting periods
         List<Period> periods;
 
-        // getting periods
         try {
 
             periods = periodService.getAllPeriods();
@@ -62,6 +67,9 @@ public class BuildSubscription extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not get periods");
             return;
         }
+
+
+        // !!! I dont need to get products because them are directly in servicePackage.getPossibleProductsToAdd()
 
 
         ServletContext servletContext = getServletContext();

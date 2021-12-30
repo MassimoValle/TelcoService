@@ -43,11 +43,33 @@ public class SaveSubscription extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // coming from buildSubscription.html
+
+        // getting parameters from html
         String packageName = request.getParameter("packageName");
         Integer period = Integer.parseInt(request.getParameter("period"));
+        LocalDate date = LocalDate.parse(request.getParameter("date"));
 
 
+        // check if params values are correct
+        if (packageName == null || date == null) {
+            invalidParameter(request, response);
+            return;
+        }
+
+        packageName = packageName.trim();
+
+        if (packageName.isEmpty()) {
+            invalidParameter(request, response);
+            return;
+        }
+
+
+        // getting ServicePackage using ServicePackage's name
         ServicePackage servicePackage = servicePackageService.getServicePackageById(packageName);
+
+
+        // getting products chosen by user - ALL THIS BECAUSE COMBOBOX IS DIFFICULT TO MANAGE USING PURE HTML
         Set<Product> productsChosen = null;
 
         if(servicePackage.getPossibleProductsToAdd() != null){
@@ -64,32 +86,19 @@ public class SaveSubscription extends HttpServlet {
                     if(param == null) continue;
                     if(param.equals("on")) productsChosen.add(product);
 
-                }catch (NumberFormatException exception){
-                    continue;
-                }
+                }catch (NumberFormatException ignored){}
 
             }
         }
 
-        LocalDate date = LocalDate.parse(request.getParameter("date"));
 
-
-        if (packageName == null || date == null) {
-            invalidParameter(request, response);
-            return;
-        }
-
-        packageName = packageName.trim();
-
-        if (packageName.isEmpty()) {
-            invalidParameter(request, response);
-            return;
-        }
-
-
+        // now, with all params I need, I can create a subscription and submitting it
         Subscription subscription = subscriptionService.prepareSubscription(servicePackage, period, date, productsChosen);
-
         Integer idSubscription = subscriptionService.submit(subscription);
+
+
+
+        // forward to ConfirmSubscription servlet
         request.setAttribute("idSubscription", idSubscription);
 
         RequestDispatcher rd = request.getRequestDispatcher("/ConfirmSubscription");

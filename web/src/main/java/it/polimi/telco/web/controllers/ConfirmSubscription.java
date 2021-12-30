@@ -37,16 +37,20 @@ public class ConfirmSubscription extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-                                    // request come from rejectedOrder in home page
+        // coming from SaveSubscription (default flow) or CheckLogin (user not logged) servlets or from home page (payment failed)
+
+
+                                    // if request come from rejectedOrder in home page
         Integer idSubscription = (Integer) request.getAttribute("idSubscription");
 
-                                    // request forward from SaveSubscription
+                                    // if request forward from SaveSubscription or CheckLogin
         if(idSubscription == null) idSubscription = Integer.parseInt(request.getParameter("idSubscription"));
 
 
         // getting variables to fill up the html
         Subscription subscription = subscriptionService.getSubscriptionById(idSubscription);
         boolean logged = request.getSession().getAttribute("user") != null;
+
 
         // adding variables to servlet context
         ServletContext servletContext = getServletContext();
@@ -58,6 +62,7 @@ public class ConfirmSubscription extends HttpServlet {
         ctx.setVariable("productsChosen", subscription.getProductChosen());
         ctx.setVariable("date", subscription.getStartDate());
         ctx.setVariable("logged", logged);
+
 
         // used like cart if user is not logged
         request.getSession().setAttribute("idSubscription", idSubscription);
