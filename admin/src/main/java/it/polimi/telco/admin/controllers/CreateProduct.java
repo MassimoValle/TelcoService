@@ -25,7 +25,7 @@ public class CreateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String productDescription = request.getParameter("productDescription");
-        BigDecimal monthlyFee = BigDecimal.valueOf(Long.parseLong(request.getParameter("monthlyFee")));
+        BigDecimal monthlyFee = BigDecimal.valueOf(Double.parseDouble(request.getParameter("monthlyFee")));
 
 
         Product product = productService.prepareProduct(productDescription, monthlyFee);
