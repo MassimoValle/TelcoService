@@ -24,13 +24,13 @@
                 </thead>
 
                 <tbody>
-                    <tr th:each="rorder : ${rejectedOrders}">
+                    <tr th:each="report : ${salesReport1s}">
 
                         <!-- Package -->
-                        <td th:text="${rorder.getSubscriptionID().getServicePackageID().name}">package</td>
+                        <td th:text="${report.id}">package</td>
 
                         <!-- Total purchases -->
-                        <td th:text="${rorder.getSubscriptionID().getServicePackageID().name}">package</td>
+                        <td th:text="${report.numberTotalPurchases}">numberTotalPurchases</td>
 
                     </tr>
                 </tbody>
@@ -39,23 +39,157 @@
 
         <div>
             <h3>Number of total purchases per package and validity period</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>Period</th>
+                    <th>NumberTotalPurchasesPerPackageAndValidityPeriod</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="report : ${salesReport2s}">
+
+                    <!-- Package -->
+                    <td th:text="${report.id.servicePackage}">package</td>
+
+                    <!-- Period -->
+                    <td th:text="${report.id.period}">period</td>
+
+                    <!-- Number Of Total Purchases -->
+                    <td th:text="${report.numberTotalPurchasesPerPackageAndValidityPeriod}">numberTotalPurchases</td>
+
+                </tr>
+                </tbody>
+            </table>
         </div>
 
         <div>
             <h3>Total value of sales per package with and without the optional products</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>TotalValueOfSales</th>
+                    <th>TotalValueOfSalesWithoutOptionalProducts</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="report : ${salesReport3s}">
+
+                    <!-- Package -->
+                    <td th:text="${report.id}">package</td>
+
+                    <!-- Total Value Of Sales -->
+                    <td th:text="${report.totalValueOfSales}">totalValueOfSales</td>
+
+                    <!-- Total Value Of Sales Without Optional Products -->
+                    <td th:text="${report.totalValueOfSalesWithoutOptionalProducts}">totalValueOfSalesWithoutOptionalProducts</td>
+
+                </tr>
+                </tbody>
+            </table>
         </div>
 
         <div>
             <h3>Average number of optional products sold together with each service package</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>AverageNumberOfOptionalProducts</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="report : ${salesReport4s}">
+
+                    <!-- Package -->
+                    <td th:text="${report.id}">package</td>
+
+                    <!-- Average Number Of Optional Products -->
+                    <td th:text="${report.averageNumberOfOptionalProducts}">averageNumberOfOptionalProducts</td>
+
+                </tr>
+                </tbody>
+            </table>
         </div>
 
         <div>
             <h3>List of insolvent users, suspended orders and alerts</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Insolvent users</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="user : ${salesReport5Insolventusers}">
+
+                        <!-- Insolvent User -->
+                        <td th:text="${user.id}">user</td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Suspended orders</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="order : ${salesReport5Suspendedorders}">
+
+                    <!-- Insolvent User -->
+                    <td th:text="${order.id}">order</td>
+
+                </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Alerts</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="alert : ${salesReport5Alerts}">
+
+                    <!-- Insolvent User -->
+                    <td th:text="${alert.id}">alert</td>
+
+                </tr>
+                </tbody>
+            </table>
         </div>
 
         <div>
             <h3>Best seller optional product, i.e. the optional product with the greatest value of sales across all
               the sold service packages</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Best Seller Product</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="product : ${salesReport6s}">
+
+                    <!-- Product -->
+                    <td th:text="${product.id}">product</td>
+
+                </tr>
+                </tbody>
+            </table>
         </div>
 
     </body>

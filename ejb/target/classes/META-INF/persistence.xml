@@ -32,5 +32,17 @@
         <class>it.polimi.telco.ejb.entities.PhoneService</class>
         <class>it.polimi.telco.ejb.entities.InternetService</class>
         <class>it.polimi.telco.ejb.entities.InternetService</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport1</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport2Id</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport2</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport2Id</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport2</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport3</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport4</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport3</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport5Insolventuser</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport5Suspendedorder</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport5Alert</class>
+        <class>it.polimi.telco.ejb.entities.SalesReport6</class>
     </persistence-unit>
 </persistence>
