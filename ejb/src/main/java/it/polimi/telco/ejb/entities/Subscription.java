@@ -3,7 +3,6 @@ package it.polimi.telco.ejb.entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 @Table(name = "Subscription", indexes = {
@@ -20,18 +19,21 @@ public class Subscription {
     @Column(name = "StartDate", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "TotalPrice", precision = 5, scale = 2)
+    @Column(name = "TotalPrice", nullable = false, precision = 5, scale = 2)
     private BigDecimal totalPrice;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "ServicePackageID", nullable = false)
     private ServicePackage servicePackageID;
 
-    @Column(name = "PeriodID", nullable = false)
-    private Integer periodID;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "PeriodID", nullable = false)
+    private Period periodID;
 
     @Column(name = "DeactivationDate")
     private LocalDate deactivationDate;
+
+
 
     public LocalDate getDeactivationDate() {
         return deactivationDate;
@@ -41,11 +43,11 @@ public class Subscription {
         this.deactivationDate = deactivationDate;
     }
 
-    public Integer getPeriodID() {
+    public Period getPeriodID() {
         return periodID;
     }
 
-    public void setPeriodID(Integer periodID) {
+    public void setPeriodID(Period periodID) {
         this.periodID = periodID;
     }
 
@@ -80,7 +82,6 @@ public class Subscription {
     public void setId(Integer id) {
         this.id = id;
     }
-
 
 
     @JoinTable(name = "SOP", joinColumns = @JoinColumn(name = "SubscriptionID"),

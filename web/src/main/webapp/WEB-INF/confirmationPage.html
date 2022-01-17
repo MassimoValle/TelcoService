@@ -36,16 +36,12 @@
                 <div>
                     <label for="packageName">Package selected:</label>
                     <label id="packageName" name="packageName" th:text="${servicePackage.name}">name</label>
-
-                    <input type="hidden" name="packageName" th:value="${servicePackage.name}"/>
                 </div>
 
                 <!-- periods -->
                 <div>
                     <label for="period">Period:</label>
-                    <label id="period" name="period" th:text="${period}">01</label>
-
-                    <input type="hidden" name="period" th:value="${period}"/>
+                    <label id="period" name="period" th:text="${period.id}">01</label>
                 </div>
 
                 <!-- products -->
@@ -57,8 +53,6 @@
 
                         <ul name="product" th:each="product : ${productsChosen}">
                             <li th:text="${product.description}">product</li>
-
-                            <input type="hidden" th:value="${product.id}"/>
                         </ul>
 
                     </div>
@@ -68,8 +62,12 @@
                 <div>
                     <label for="date">Start date:</label>
                     <label id="date" name="date" th:text="${date}">00-00-00</label>
+                </div>
 
-                    <input type="hidden" name="date" th:value="${date}"/>
+                <!-- total price -->
+                <div>
+                    <label for="price">Total price:</label>
+                    <label id="price" name="price" th:text="${totalPrice}">0.00</label>
                 </div>
 
                 <!-- submit -->
@@ -77,16 +75,18 @@
                     <input type="submit" value="Buy">
 
                 </div>
-                <div th:unless="${logged}">
-
-                    <a th:href="index.html">
-                        <input value="Login">
-                    </a>
-                </div>
 
 
             </fieldset>
         </form>
+
+
+        <div th:unless="${logged}">
+
+            <a th:href="index.html">
+                <input type="submit" value="Login">
+            </a>
+        </div>
 
     </div>
 

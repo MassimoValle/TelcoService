@@ -61,6 +61,7 @@ public class ConfirmSubscription extends HttpServlet {
         ctx.setVariable("period", subscription.getPeriodID());
         ctx.setVariable("productsChosen", subscription.getProductChosen());
         ctx.setVariable("date", subscription.getStartDate());
+        ctx.setVariable("totalPrice", subscription.getTotalPrice());
         ctx.setVariable("logged", logged);
 
 

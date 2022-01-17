@@ -1,6 +1,7 @@
 package it.polimi.telco.ejb.services;
 
 import it.polimi.telco.ejb.entities.Period;
+import it.polimi.telco.ejb.entities.ServicePackage;
 import it.polimi.telco.ejb.exceptions.NoPeriodFoundException;
 
 import javax.ejb.Stateless;
@@ -31,5 +32,17 @@ public class PeriodService {
         }
 
         return periods;
+    }
+
+    public Period getPeriod(int id) {
+        Period period = em.find(Period.class, id);
+
+        if (period == null) {
+            return null;
+        }
+
+        em.refresh(period);
+
+        return period;
     }
 }

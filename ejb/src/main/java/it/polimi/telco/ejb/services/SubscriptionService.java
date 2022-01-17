@@ -1,5 +1,6 @@
 package it.polimi.telco.ejb.services;
 
+import it.polimi.telco.ejb.entities.Period;
 import it.polimi.telco.ejb.entities.Product;
 import it.polimi.telco.ejb.entities.ServicePackage;
 import it.polimi.telco.ejb.entities.Subscription;
@@ -18,14 +19,14 @@ public class SubscriptionService {
 
     public SubscriptionService() {}
 
-    public Subscription prepareSubscription(ServicePackage servicePackage, int period, LocalDate date, Set<Product> productsChosen){
+    public Subscription prepareSubscription(ServicePackage servicePackage, Period period, LocalDate date, Set<Product> productsChosen){
 
         Subscription subscription = new Subscription();
 
         subscription.setServicePackageID(servicePackage);
         subscription.setPeriodID(period);
         subscription.setStartDate(date);
-        subscription.setDeactivationDate(date.plusMonths(period));
+        subscription.setDeactivationDate(date.plusMonths(period.getId()));
         subscription.setProductChosen(productsChosen);
 
         return subscription;

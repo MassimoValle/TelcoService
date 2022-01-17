@@ -11,7 +11,6 @@
         <class>it.polimi.telco.ejb.entities.Product</class>
         <class>it.polimi.telco.ejb.entities.Product</class>
         <class>it.polimi.telco.ejb.entities.Subscription</class>
-        <class>it.polimi.telco.ejb.entities.OrderId</class>
         <class>it.polimi.telco.ejb.entities.Order</class>
         <class>it.polimi.telco.ejb.entities.Order</class>
         <class>it.polimi.telco.ejb.entities.Subscription</class>
@@ -22,5 +21,16 @@
         <class>it.polimi.telco.ejb.entities.Product</class>
         <class>it.polimi.telco.ejb.entities.Period</class>
         <class>it.polimi.telco.ejb.entities.Review</class>
+        <class>it.polimi.telco.ejb.entities.Subscription</class>
+        <class>it.polimi.telco.ejb.entities.Subscription</class>
+        <class>it.polimi.telco.ejb.entities.PhoneService</class>
+        <class>it.polimi.telco.ejb.entities.Service</class>
+        <class>it.polimi.telco.ejb.entities.Service</class>
+        <class>it.polimi.telco.ejb.entities.Service</class>
+        <class>it.polimi.telco.ejb.entities.Service</class>
+        <class>it.polimi.telco.ejb.entities.Service</class>
+        <class>it.polimi.telco.ejb.entities.PhoneService</class>
+        <class>it.polimi.telco.ejb.entities.InternetService</class>
+        <class>it.polimi.telco.ejb.entities.InternetService</class>
     </persistence-unit>
 </persistence>

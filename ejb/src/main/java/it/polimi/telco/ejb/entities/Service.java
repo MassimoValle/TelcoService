@@ -9,6 +9,7 @@ import java.util.Set;
 })
 
 @Entity
+//@Inheritance(strategy = InheritanceType.JOINED)
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +35,7 @@ public class Service {
     public void setId(Integer id) {
         this.id = id;
     }
+
 
     @ManyToMany(mappedBy = "servicesInPackage")
     private Set<ServicePackage> packagesUseIt;

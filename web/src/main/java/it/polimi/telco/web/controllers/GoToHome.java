@@ -1,12 +1,15 @@
 package it.polimi.telco.web.controllers;
 
 import it.polimi.telco.ejb.entities.Order;
+import it.polimi.telco.ejb.entities.Service;
 import it.polimi.telco.ejb.entities.ServicePackage;
 import it.polimi.telco.ejb.entities.User;
+import it.polimi.telco.ejb.exceptions.NoServiceFoundException;
 import it.polimi.telco.ejb.exceptions.NoServicePackageFoundException;
 import it.polimi.telco.ejb.exceptions.OrderException;
 import it.polimi.telco.ejb.services.OrderService;
 import it.polimi.telco.ejb.services.ServicePackageService;
+import it.polimi.telco.ejb.services.ServiceService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -29,6 +32,9 @@ public class GoToHome extends HttpServlet {
     @EJB(name = "OrderServiceEJB")
     private OrderService orderService;
 
+    @EJB(name = "ServiceServiceEJB")
+    private ServiceService serviceService;
+
     @Override
     public void init() throws ServletException {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
@@ -47,8 +53,11 @@ public class GoToHome extends HttpServlet {
         // getting service packages - always
         try {
 
+            List<Service> services;
+            services = serviceService.getAllServices();
+
             servicePackages = servicePackageService.getServicePackages();
-        } catch (NoServicePackageFoundException e) {
+        } catch (NoServicePackageFoundException | NoServiceFoundException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credentials");
             return;
         }

@@ -1,11 +1,8 @@
 package it.polimi.telco.ejb.services;
 
-import it.polimi.telco.ejb.entities.Product;
 import it.polimi.telco.ejb.entities.Review;
-import it.polimi.telco.ejb.entities.Service;
 import it.polimi.telco.ejb.entities.User;
 import it.polimi.telco.ejb.exceptions.NoReviewFoundException;
-import it.polimi.telco.ejb.exceptions.NoServiceFoundException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

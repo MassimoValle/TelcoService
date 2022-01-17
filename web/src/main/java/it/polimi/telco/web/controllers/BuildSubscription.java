@@ -1,7 +1,6 @@
 package it.polimi.telco.web.controllers;
 
-import it.polimi.telco.ejb.entities.Period;
-import it.polimi.telco.ejb.entities.ServicePackage;
+import it.polimi.telco.ejb.entities.*;
 import it.polimi.telco.ejb.exceptions.NoPeriodFoundException;
 import it.polimi.telco.ejb.services.PeriodService;
 import it.polimi.telco.ejb.services.ServicePackageService;
@@ -38,6 +37,10 @@ public class BuildSubscription extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // coming from home.html
+        ServletContext servletContext = getServletContext();
+        final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+
+
 
         // get name of the package I want to buy
         String servicePackageName = request.getParameter("servicePackageName");
@@ -70,10 +73,6 @@ public class BuildSubscription extends HttpServlet {
 
 
         // !!! I dont need to get products because them are directly in servicePackage.getPossibleProductsToAdd()
-
-
-        ServletContext servletContext = getServletContext();
-        final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 
         ctx.setVariable("servicePackage", servicePackage);
         ctx.setVariable("periods", periods);

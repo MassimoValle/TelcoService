@@ -1,8 +1,10 @@
 package it.polimi.telco.web.controllers;
 
+import it.polimi.telco.ejb.entities.Period;
 import it.polimi.telco.ejb.entities.Product;
 import it.polimi.telco.ejb.entities.ServicePackage;
 import it.polimi.telco.ejb.entities.Subscription;
+import it.polimi.telco.ejb.services.PeriodService;
 import it.polimi.telco.ejb.services.ServicePackageService;
 import it.polimi.telco.ejb.services.SubscriptionService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
@@ -22,6 +24,9 @@ import java.util.Set;
 public class SaveSubscription extends HttpServlet {
 
     private TemplateEngine templateEngine;
+
+    @EJB(name = "PeriodServiceEJB")
+    private PeriodService periodService;
 
     @EJB(name = "ServicePackageServiceEJB")
     private ServicePackageService servicePackageService;
@@ -47,7 +52,7 @@ public class SaveSubscription extends HttpServlet {
 
         // getting parameters from html
         String packageName = request.getParameter("packageName");
-        Integer period = Integer.parseInt(request.getParameter("period"));
+        int periodID = Integer.parseInt(request.getParameter("period"));
         LocalDate date = LocalDate.parse(request.getParameter("date"));
 
 
@@ -67,6 +72,8 @@ public class SaveSubscription extends HttpServlet {
 
         // getting ServicePackage using ServicePackage's name
         ServicePackage servicePackage = servicePackageService.getServicePackageById(packageName);
+
+        Period period = periodService.getPeriod(periodID);
 
 
         // getting products chosen by user - ALL THIS BECAUSE COMBOBOX IS DIFFICULT TO MANAGE USING PURE HTML
