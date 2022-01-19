@@ -52,6 +52,16 @@ public class PlaceOrder extends HttpServlet {
 
         // getting params
         Integer idSubscription = Integer.parseInt(request.getParameter("idSubscription"));
+        String paymentAccepted = request.getParameter("paymentAccepted");
+        String paymentRejected = request.getParameter("paymentRejected");
+
+        Boolean payment;
+        if(paymentAccepted != null && paymentAccepted.equals("on")){
+            payment = true;
+        }else if(paymentRejected != null && paymentRejected.equals("on")) {
+            payment = false;
+        }
+        else payment = null;
 
         Subscription subscription = subscriptionService.getSubscriptionById(idSubscription);
         User user = (User) request.getSession().getAttribute("user");
@@ -79,6 +89,7 @@ public class PlaceOrder extends HttpServlet {
         // forward to CheckPayment servlet
 
         request.setAttribute("order", order);
+        request.setAttribute("payment", payment);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/CheckPayment");
         dispatcher.forward(request, response);

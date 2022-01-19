@@ -63,7 +63,7 @@ public class OrderService {
         order.setSubscriptionID(subscription);
 
         order.setAttempt(0);
-        order.setStatus("insolvent");
+        order.setStatus("rejected");
 
         Instant instant = Instant.now();
         Timestamp timestamp = Timestamp.from(instant);

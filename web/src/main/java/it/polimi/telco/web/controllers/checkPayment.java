@@ -3,7 +3,6 @@ package it.polimi.telco.web.controllers;
 import it.polimi.telco.ejb.entities.Order;
 import it.polimi.telco.ejb.entities.Review;
 import it.polimi.telco.ejb.entities.User;
-import it.polimi.telco.ejb.exceptions.NoReviewFoundException;
 import it.polimi.telco.ejb.services.OrderService;
 import it.polimi.telco.ejb.services.ReviewService;
 import it.polimi.telco.ejb.services.SubscriptionService;
@@ -56,14 +55,19 @@ public class CheckPayment extends HttpServlet {
 
         User user = (User) request.getSession().getAttribute("user");
         Order order = (Order) request.getAttribute("order");
+        Boolean payment = (Boolean) request.getAttribute("payment");
 
 
         // payment to external service
-        boolean positiveCheck = ExternalService.checkValidation(null);
+        boolean positiveCheck = ExternalService.checkValidation(payment);
 
 
         // if the payment fails
         if(!positiveCheck){
+
+            userService.setStatus(user, "insolvent");
+
+
 
             // increment attempt
             int attempt = orderService.incrementAttempt(order);
@@ -72,31 +76,10 @@ public class CheckPayment extends HttpServlet {
 
             if(attempt == 3){
 
-                Review review = null;
+                Review review;
 
-
-                // check if the review already exists
-                try {
-                    review = reviewService.getReviewByUser(user);
-                } catch (NoReviewFoundException e) {
-                    e.printStackTrace();
-                }
-
-                // if review already exists, update last rejection date
-                if(review != null){
-
-                    Instant instant = Instant.now();
-                    Timestamp timestamp = Timestamp.from(instant);
-
-                    review.setLastRejection(timestamp);
-                }
-
-                // else create a new review
-                else {
-
-                    review = reviewService.prepareReview(user, order.getSubscriptionID().getTotalPrice());
-                    reviewService.submit(review);
-                }
+                review = reviewService.prepareReview(user, order.getSubscriptionID().getTotalPrice());
+                reviewService.submit(review);
 
             }
         }

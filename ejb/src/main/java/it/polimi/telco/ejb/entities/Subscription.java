@@ -19,7 +19,7 @@ public class Subscription {
     @Column(name = "StartDate", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "TotalPrice", nullable = false, precision = 5, scale = 2)
+    @Column(name = "TotalPrice", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalPrice;
 
     @ManyToOne(optional = false)

@@ -44,5 +44,7 @@
         <class>it.polimi.telco.ejb.entities.SalesReport5Suspendedorder</class>
         <class>it.polimi.telco.ejb.entities.SalesReport5Alert</class>
         <class>it.polimi.telco.ejb.entities.SalesReport6</class>
+        <class>it.polimi.telco.ejb.entities.ServicePackage</class>
+        <class>it.polimi.telco.ejb.entities.User</class>
     </persistence-unit>
 </persistence>

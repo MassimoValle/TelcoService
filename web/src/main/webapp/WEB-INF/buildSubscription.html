@@ -41,14 +41,14 @@
 
                     <!-- package name -->
                     <div>
-                        <label for="packageName">Package selected:</label>
-                        <label id="packageName" name="packageName" th:text="${servicePackage.name}">name</label>
-                        <input type="hidden" name="packageName" th:value="${servicePackage.name}"/>
+                        <label for="packageId">Package selected:</label>
+                        <label id="packageId" name="packageId" th:text="${servicePackage.name}">name</label>
+                        <input type="hidden" name="packageId" th:value="${servicePackage.id}"/>
                     </div>
 
                     <!-- periods -->
                     <div>
-                        <label for="period">Period:</label>
+                        <label for="period">Validity period:</label>
                         <select id="period" name="period">
                             <option th:each="period : ${periods}"
                                     th:value="${period.id}"

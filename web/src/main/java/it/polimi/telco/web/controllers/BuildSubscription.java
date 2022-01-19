@@ -43,22 +43,11 @@ public class BuildSubscription extends HttpServlet {
 
 
         // get name of the package I want to buy
-        String servicePackageName = request.getParameter("servicePackageName");
-
-        if (servicePackageName == null) {
-            invalidParameter(request, response);
-            return;
-        }
-
-        servicePackageName = servicePackageName.trim();
-        if (servicePackageName.isEmpty()) {
-            invalidParameter(request, response);
-            return;
-        }
+        Integer servicePackageId = Integer.parseInt(request.getParameter("servicePackageId"));
 
 
         // get the package using package's name
-        ServicePackage servicePackage = servicePackageService.getServicePackageById(servicePackageName);
+        ServicePackage servicePackage = servicePackageService.getServicePackageById(servicePackageId);
 
         // getting periods
         List<Period> periods;

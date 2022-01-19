@@ -76,4 +76,12 @@ public class UserService {
         return user;
     }
 
+
+    public void setStatus(User user, String status){
+
+        user.setStatus(status);
+
+        em.merge(user);
+    }
+
 }

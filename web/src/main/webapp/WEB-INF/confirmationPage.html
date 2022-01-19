@@ -36,11 +36,18 @@
                 <div>
                     <label for="packageName">Package selected:</label>
                     <label id="packageName" name="packageName" th:text="${servicePackage.name}">name</label>
+
+                    <div th:if="${!servicePackage.getServicesInPackage().isEmpty()}">
+                        <ul name="product" th:each="service : ${servicePackage.servicesInPackage}">
+                            <li th:text="${service.name}">service name</li>
+                        </ul>
+                    </div>
+
                 </div>
 
                 <!-- periods -->
                 <div>
-                    <label for="period">Period:</label>
+                    <label for="period">Validity period:</label>
                     <label id="period" name="period" th:text="${period.id}">01</label>
                 </div>
 
@@ -68,6 +75,15 @@
                 <div>
                     <label for="price">Total price:</label>
                     <label id="price" name="price" th:text="${totalPrice}">0.00</label>
+                </div>
+
+                <!-- test payment -->
+                <div>
+                    <input th:id="paymentAccepted" th:name="paymentAccepted" type="checkbox"/>
+                    <label>payment accepted</label>
+
+                    <input th:id="paymentRejected" th:name="paymentRejected" type="checkbox"/>
+                    <label>payment rejected</label>
                 </div>
 
                 <!-- submit -->

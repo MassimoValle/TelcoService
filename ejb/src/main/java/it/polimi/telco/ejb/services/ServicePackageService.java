@@ -34,7 +34,7 @@ public class ServicePackageService {
         return servicePackages;
     }
 
-    public ServicePackage getServicePackageById(String id) {
+    public ServicePackage getServicePackageById(Integer id) {
         ServicePackage servicePackage = em.find(ServicePackage.class, id);
 
         if (servicePackage == null) {

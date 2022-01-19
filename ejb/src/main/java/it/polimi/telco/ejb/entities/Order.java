@@ -11,7 +11,7 @@ import java.time.Instant;
 
 @NamedQueries({
         @NamedQuery(name = "Order.getRejectedOrders",
-                query = "SELECT o FROM Order o WHERE o.userID = :usr AND o.status = 'insolvent'"),
+                query = "SELECT o FROM Order o WHERE o.userID = :usr AND o.status = 'rejected'"),
         @NamedQuery(name = "Order.getOrder",
                 query = "SELECT o FROM Order o WHERE o.userID = :usr AND o.subscriptionID = :sbcr")
 })

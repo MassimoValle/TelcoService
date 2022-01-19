@@ -24,7 +24,7 @@ public class Review {
     @Column(name = "Email", nullable = false, length = 45)
     private String email;
 
-    @Column(name = "Amount", precision = 5, scale = 2)
+    @Column(name = "Amount", precision = 10, scale = 2)
     private BigDecimal amount;
 
     @Column(name = "LastRejection", nullable = false)

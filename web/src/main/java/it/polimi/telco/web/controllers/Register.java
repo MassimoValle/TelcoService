@@ -54,7 +54,7 @@ public class Register extends HttpServlet {
         }
 
         if (!pwd.equals(confpwd)) {
-            invalidCredentials("Passwords do not match", request, response);
+            invalidCredentials("Passwords doesn't match", request, response);
             return;
         }
 
@@ -81,6 +81,6 @@ public class Register extends HttpServlet {
         ServletContext servletContext = getServletContext();
         final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
         ctx.setVariable("errorMessage", message);
-        templateEngine.process("/registration.html", ctx, response.getWriter());
+        templateEngine.process("/index.html", ctx, response.getWriter());
     }
 }

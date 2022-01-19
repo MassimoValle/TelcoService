@@ -1,10 +1,8 @@
 package it.polimi.telco.web.controllers;
 
 import it.polimi.telco.ejb.entities.Order;
-import it.polimi.telco.ejb.entities.Service;
 import it.polimi.telco.ejb.entities.ServicePackage;
 import it.polimi.telco.ejb.entities.User;
-import it.polimi.telco.ejb.exceptions.NoServiceFoundException;
 import it.polimi.telco.ejb.exceptions.NoServicePackageFoundException;
 import it.polimi.telco.ejb.exceptions.OrderException;
 import it.polimi.telco.ejb.services.OrderService;
@@ -53,11 +51,8 @@ public class GoToHome extends HttpServlet {
         // getting service packages - always
         try {
 
-            List<Service> services;
-            services = serviceService.getAllServices();
-
             servicePackages = servicePackageService.getServicePackages();
-        } catch (NoServicePackageFoundException | NoServiceFoundException e) {
+        } catch (NoServicePackageFoundException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credentials");
             return;
         }

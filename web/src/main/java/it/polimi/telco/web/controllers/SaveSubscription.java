@@ -51,27 +51,17 @@ public class SaveSubscription extends HttpServlet {
         // coming from buildSubscription.html
 
         // getting parameters from html
-        String packageName = request.getParameter("packageName");
+        Integer packageId = Integer.parseInt(request.getParameter("packageId"));
         int periodID = Integer.parseInt(request.getParameter("period"));
-        LocalDate date = LocalDate.parse(request.getParameter("date"));
+        String dateString = request.getParameter("date");
 
-
-        // check if params values are correct
-        if (packageName == null || date == null) {
-            invalidParameter(request, response);
-            return;
-        }
-
-        packageName = packageName.trim();
-
-        if (packageName.isEmpty()) {
-            invalidParameter(request, response);
-            return;
-        }
+        LocalDate date;
+        if(dateString == null || dateString.equals("")) date = LocalDate.now();
+        else date = LocalDate.parse(request.getParameter("date"));
 
 
         // getting ServicePackage using ServicePackage's name
-        ServicePackage servicePackage = servicePackageService.getServicePackageById(packageName);
+        ServicePackage servicePackage = servicePackageService.getServicePackageById(packageId);
 
         Period period = periodService.getPeriod(periodID);
 

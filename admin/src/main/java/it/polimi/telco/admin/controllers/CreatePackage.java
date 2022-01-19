@@ -81,9 +81,7 @@ public class CreatePackage extends HttpServlet {
                     if(param == null) continue;
                     if(param.equals("on")) servicesChosen.add(service);
 
-                }catch (NumberFormatException exception){
-                    continue;
-                }
+                }catch (NumberFormatException ignored){}
 
             }
         }
@@ -102,9 +100,7 @@ public class CreatePackage extends HttpServlet {
                     if(param == null) continue;
                     if(param.equals("on")) productsChosen.add(product);
 
-                }catch (NumberFormatException exception){
-                    continue;
-                }
+                }catch (NumberFormatException ignored){}
 
             }
         }
