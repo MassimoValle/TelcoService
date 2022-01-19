@@ -7,7 +7,7 @@ import it.polimi.telco.ejb.exceptions.NoServicePackageFoundException;
 import it.polimi.telco.ejb.exceptions.OrderException;
 import it.polimi.telco.ejb.services.OrderService;
 import it.polimi.telco.ejb.services.ServicePackageService;
-import it.polimi.telco.ejb.services.ServiceService;
+import it.polimi.telco.ejb.services.ServiceManagementService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -31,7 +31,7 @@ public class GoToHome extends HttpServlet {
     private OrderService orderService;
 
     @EJB(name = "ServiceServiceEJB")
-    private ServiceService serviceService;
+    private ServiceManagementService serviceManagementService;
 
     @Override
     public void init() throws ServletException {

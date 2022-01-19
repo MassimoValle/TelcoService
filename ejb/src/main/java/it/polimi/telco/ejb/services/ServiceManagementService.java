@@ -10,12 +10,12 @@ import javax.persistence.PersistenceException;
 import java.util.List;
 
 @Stateless(name = "ServiceServiceEJB")
-public class ServiceService {
+public class ServiceManagementService {
 
     @PersistenceContext(unitName = "telco_persistence")
     private EntityManager em;
 
-    public ServiceService(){}
+    public ServiceManagementService(){}
 
 
     public List<Service> getAllServices() throws NoServiceFoundException {

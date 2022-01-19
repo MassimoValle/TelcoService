@@ -7,7 +7,7 @@ import it.polimi.telco.ejb.exceptions.NoProductFoundException;
 import it.polimi.telco.ejb.exceptions.NoServiceFoundException;
 import it.polimi.telco.ejb.services.ProductService;
 import it.polimi.telco.ejb.services.ServicePackageService;
-import it.polimi.telco.ejb.services.ServiceService;
+import it.polimi.telco.ejb.services.ServiceManagementService;
 
 import javax.ejb.EJB;
 import javax.servlet.*;
@@ -24,7 +24,7 @@ public class CreatePackage extends HttpServlet {
 
 
     @EJB(name = "ServiceServiceEJB")
-    private ServiceService serviceService;
+    private ServiceManagementService serviceService;
 
     @EJB(name = "ProductServiceEJB")
     private ProductService productService;

@@ -1,0 +1,12 @@
+CREATE TABLE Sales_Report_5_Alerts(ReviewID INT)
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_SALES_REPORT_5_Alerts
+AFTER INSERT ON db_Telco_DB2.Review
+FOR EACH ROW
+BEGIN
+   	REPLACE INTO db_Telco_DB2.Sales_Report_5_Alerts
+  		SELECT ReviewID
+    	FROM db_Telco_DB2.Review;
+END;//
+DELIMITER ;

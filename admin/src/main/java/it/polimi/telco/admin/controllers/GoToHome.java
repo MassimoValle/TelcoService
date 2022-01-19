@@ -9,7 +9,7 @@ import it.polimi.telco.ejb.exceptions.NoProductFoundException;
 import it.polimi.telco.ejb.exceptions.NoServiceFoundException;
 import it.polimi.telco.ejb.services.PeriodService;
 import it.polimi.telco.ejb.services.ProductService;
-import it.polimi.telco.ejb.services.ServiceService;
+import it.polimi.telco.ejb.services.ServiceManagementService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -29,7 +29,7 @@ public class GoToHome extends HttpServlet {
     private TemplateEngine templateEngine;
 
     @EJB(name = "ServiceServiceEJB")
-    private ServiceService serviceService;
+    private ServiceManagementService serviceService;
 
     @EJB(name = "ProductServiceEJB")
     private ProductService productService;
