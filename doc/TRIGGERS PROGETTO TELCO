@@ -1,0 +1,196 @@
+TRIGGERS PROGETTO TELCO
+
+-- WEB MODULE --
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_COST_BASE 
+BEFORE INSERT ON db_Telco_DB2.Subscription 
+FOR EACH ROW
+BEGIN
+	SET NEW.TotalPrice = NEW.PeriodID * (SELECT MonthlyFee FROM db_Telco_DB2.Period WHERE Period.Month = NEW.PeriodID);
+END;//
+DELIMITER ;
+
+
+
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_COST_WITH_PRODUCTS
+AFTER INSERT ON db_Telco_DB2.SOP
+FOR EACH ROW
+BEGIN
+   	UPDATE db_Telco_DB2.Subscription
+   	SET Subscription.TotalPrice = Subscription.TotalPrice + 
+   	Subscription.PeriodID * (SELECT COALESCE(SUM(MonthlyFee),0)
+   							 FROM db_Telco_DB2.Product AS P
+							 WHERE new.OptionalProductID = P.ID AND new.SubscriptionID = Subscription.ID)
+   	WHERE Subscription.ID = new.SubscriptionID;
+END;//
+DELIMITER ;
+
+
+
+
+
+-- ADMIN MODULE --
+
+1)
+
+CREATE TABLE Sales_Report_1(ServicePackage VARCHAR(45), NumberTotalPurchases INT)
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_SALES_REPORT_1
+AFTER INSERT ON db_Telco_DB2.Order
+FOR EACH ROW
+BEGIN
+   	REPLACE INTO db_Telco_DB2.Sales_Report_1
+  		SELECT ServicePackageID, COUNT(ServicePackageID)
+    	FROM db_Telco_DB2.Subscription
+    	GROUP BY ServicePackageID;
+END;//
+DELIMITER ;
+
+
+
+
+2)
+
+CREATE TABLE Sales_Report_2(ServicePackage VARCHAR(45), Period INT, NumberTotalPurchasesPerPackageAndValidityPeriod INT)
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_SALES_REPORT_2
+AFTER INSERT ON db_Telco_DB2.Order
+FOR EACH ROW
+BEGIN
+   	REPLACE INTO db_Telco_DB2.Sales_Report_2
+  		SELECT DISTINCT ServicePackageID, PeriodID, COUNT(*)
+    	FROM db_Telco_DB2.Subscription
+    	GROUP BY ServicePackageID, PeriodID;
+END;//
+DELIMITER ;
+
+
+
+
+3)
+
+CREATE TABLE Sales_Report_3(ServicePackage VARCHAR(45), TotalValueOfSales DECIMAL(10,2), NTotalValueOfSalesWithoutOptionalProducts DECIMAL(10,2))
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_SALES_REPORT_3
+AFTER INSERT ON db_Telco_DB2.Order
+FOR EACH ROW
+BEGIN
+   	REPLACE INTO db_Telco_DB2.Sales_Report_3
+  		SELECT DISTINCT ServicePackageID, SUM(TotalPrice), 
+						SUM(TotalPrice)-PeriodID * (SELECT COALESCE(SUM(MonthlyFee),0)
+   						FROM db_Telco_DB2.Product AS P JOIN db_Telco_DB2.SOP AS S
+						WHERE S.OptionalProductID = P.ID AND S.SubscriptionID = Subscription.ID
+						GROUP BY SubscriptionID)
+    		FROM db_Telco_DB2.Subscription
+    		GROUP BY ServicePackageID, PeriodID, ID;
+END;//
+DELIMITER ;
+
+
+
+
+4)
+
+CREATE TABLE Sales_Report_4(ServicePackage VARCHAR(45), AverageNumberOfOptionalProducts DECIMAL(10,2))
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_SALES_REPORT_4
+AFTER INSERT ON db_Telco_DB2.Order
+FOR EACH ROW
+BEGIN
+   	REPLACE INTO db_Telco_DB2.Sales_Report_4
+  		SELECT ServicePackageID, AVG(Count)
+		FROM (
+			SELECT ServicePackageID, COUNT(*) AS Count
+    			FROM db_Telco_DB2.Subscription AS S JOIN db_Telco_DB2.SOP AS SOP
+        			WHERE S.ID = SOP.SubscriptionID
+    			GROUP BY ServicePackageID, ID
+		) AS TMP
+		GROUP BY ServicePackageID;
+END;//
+DELIMITER ;
+
+
+
+
+5)
+
+CREATE TABLE Sales_Report_5_InsolventUsers(User VARCHAR(45))
+CREATE TABLE Sales_Report_5_SuspendedOrders(OrderID INT)
+CREATE TABLE Sales_Report_5_Alerts(ReviewID INT)
+
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_SALES_REPORT_5_InsolventUsers
+AFTER INSERT ON db_Telco_DB2.Order
+FOR EACH ROW
+BEGIN
+   	REPLACE INTO db_Telco_DB2.Sales_Report_5_InsolventUsers
+  		SELECT DISTINCT Username
+    	FROM db_Telco_DB2.User
+    	WHERE Status = "insolvent";
+END;//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_SALES_REPORT_5_SuspendedOrders
+AFTER INSERT ON db_Telco_DB2.Order
+FOR EACH ROW
+BEGIN
+   	REPLACE INTO db_Telco_DB2.Sales_Report_5_SuspendedOrders
+  		SELECT DISTINCT OrderID
+    	FROM db_Telco_DB2.Order
+    	WHERE Status = "rejected";
+END;//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_SALES_REPORT_5_Alerts
+AFTER INSERT ON db_Telco_DB2.Review
+FOR EACH ROW
+BEGIN
+   	REPLACE INTO db_Telco_DB2.Sales_Report_5_Alerts
+  		SELECT ReviewID
+    	FROM db_Telco_DB2.Review;
+END;//
+DELIMITER ;
+
+
+
+
+6)
+
+CREATE TABLE Sales_Report_6(ProductID INT)
+
+DELIMITER //
+CREATE TRIGGER TRG_TOTAL_SALES_REPORT_6
+AFTER INSERT ON db_Telco_DB2.Order
+FOR EACH ROW
+BEGIN
+   	REPLACE INTO db_Telco_DB2.Sales_Report_6
+  		SELECT ID FROM
+		(
+		  SELECT ID, MonthlyFee*Count AS Sold
+		  FROM Product AS P JOIN 
+		  	(
+		  		SELECT DISTINCT OptionalProductID, COUNT(OptionalProductID) AS Count
+				FROM db_Telco_DB2.SOP AS S JOIN db_Telco_DB2.Product AS P
+				GROUP BY OptionalProductID
+			) AS TMP1
+            	  WHERE P.ID = TMP1.OptionalProductID
+		  GROUP BY Sold, ID
+		) AS TMP2
+		ORDER BY Sold DESC
+		LIMIT 1;
+END;//
+DELIMITER ;
+
+
