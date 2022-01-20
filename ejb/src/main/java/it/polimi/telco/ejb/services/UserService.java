@@ -57,6 +57,7 @@ public class UserService {
         newUser.setEmail(email);
         newUser.setUsername(username);
         newUser.setPassword(password);
+        newUser.setStatus("ok");
 
         em.persist(newUser);
         return newUser;
