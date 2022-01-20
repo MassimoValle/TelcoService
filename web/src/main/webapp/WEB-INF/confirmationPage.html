@@ -42,7 +42,6 @@
                             <li th:text="${service.name}">service name</li>
                         </ul>
                     </div>
-
                 </div>
 
                 <!-- periods -->
@@ -79,11 +78,13 @@
 
                 <!-- test payment -->
                 <div>
-                    <input th:id="paymentAccepted" th:name="paymentAccepted" type="checkbox"/>
-                    <label>payment accepted</label>
+                    <fieldset>
+                        <input th:id="paymentAccepted" th:name="paymentAccepted" type="checkbox"/>
+                        <label>payment accepted</label>
 
-                    <input th:id="paymentRejected" th:name="paymentRejected" type="checkbox"/>
-                    <label>payment rejected</label>
+                        <input th:id="paymentRejected" th:name="paymentRejected" type="checkbox"/>
+                        <label>payment rejected</label>
+                    </fieldset>
                 </div>
 
                 <!-- submit -->
