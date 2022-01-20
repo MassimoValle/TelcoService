@@ -1,4 +1,4 @@
-CREATE TABLE Sales_Report_5_SuspendedOrders(OrderID INT)
+CREATE TABLE Sales_Report_5_SuspendedOrders(OrderID INT, PRIMARY KEY(OrderID))
 
 DELIMITER //
 CREATE TRIGGER TRG_TOTAL_SALES_REPORT_5_SuspendedOrders

@@ -36,7 +36,11 @@ DELIMITER ;
 
 1)
 
-CREATE TABLE Sales_Report_1(ServicePackage VARCHAR(45), NumberTotalPurchases INT)
+CREATE TABLE Sales_Report_1(
+ServicePackage VARCHAR(45),
+NumberTotalPurchases INT,
+PRIMARY KEY(ServicePackage)
+);
 
 DELIMITER //
 CREATE TRIGGER TRG_TOTAL_SALES_REPORT_1
@@ -55,7 +59,12 @@ DELIMITER ;
 
 2)
 
-CREATE TABLE Sales_Report_2(ServicePackage VARCHAR(45), Period INT, NumberTotalPurchasesPerPackageAndValidityPeriod INT)
+CREATE TABLE Sales_Report_2(
+ServicePackage VARCHAR(45),
+Period INT,
+NumberTotalPurchasesPerPackageAndValidityPeriod INT,
+PRIMARY KEY(ServicePackage, Period)
+)
 
 DELIMITER //
 CREATE TRIGGER TRG_TOTAL_SALES_REPORT_2
@@ -74,7 +83,12 @@ DELIMITER ;
 
 3)
 
-CREATE TABLE Sales_Report_3(ServicePackage VARCHAR(45), TotalValueOfSales DECIMAL(10,2), NTotalValueOfSalesWithoutOptionalProducts DECIMAL(10,2))
+CREATE TABLE Sales_Report_3(
+ServicePackage VARCHAR(45),
+TotalValueOfSales DECIMAL(10,2),
+NTotalValueOfSalesWithoutOptionalProducts DECIMAL(10,2),
+PRIMARY KEY(ServicePackage)
+)
 
 DELIMITER //
 CREATE TRIGGER TRG_TOTAL_SALES_REPORT_3
@@ -97,7 +111,10 @@ DELIMITER ;
 
 4)
 
-CREATE TABLE Sales_Report_4(ServicePackage VARCHAR(45), AverageNumberOfOptionalProducts DECIMAL(10,2))
+CREATE TABLE Sales_Report_4(
+ServicePackage VARCHAR(45),
+AverageNumberOfOptionalProducts DECIMAL(10,2),
+PRIMARY KEY(ServicePackage))
 
 DELIMITER //
 CREATE TRIGGER TRG_TOTAL_SALES_REPORT_4
@@ -121,9 +138,9 @@ DELIMITER ;
 
 5)
 
-CREATE TABLE Sales_Report_5_InsolventUsers(User VARCHAR(45))
-CREATE TABLE Sales_Report_5_SuspendedOrders(OrderID INT)
-CREATE TABLE Sales_Report_5_Alerts(ReviewID INT)
+CREATE TABLE Sales_Report_5_InsolventUsers(User VARCHAR(45), PRIMARY KEY(User))
+CREATE TABLE Sales_Report_5_SuspendedOrders(OrderID INT, PRIMARY KEY(OrderID))
+CREATE TABLE Sales_Report_5_Alerts(ReviewID INT, PRIMARY KEY(ReviewID))
 
 
 DELIMITER //
@@ -168,7 +185,7 @@ DELIMITER ;
 
 6)
 
-CREATE TABLE Sales_Report_6(ProductID INT)
+CREATE TABLE Sales_Report_6(ProductID INT, PRIMARY KEY(ProductID))
 
 DELIMITER //
 CREATE TRIGGER TRG_TOTAL_SALES_REPORT_6

@@ -1,4 +1,8 @@
-CREATE TABLE Sales_Report_4(ServicePackage VARCHAR(45), AverageNumberOfOptionalProducts DECIMAL(10,2))
+CREATE TABLE Sales_Report_4(
+ServicePackage VARCHAR(45),
+AverageNumberOfOptionalProducts DECIMAL(10,2),
+PRIMARY KEY(ServicePackage))
+
 
 DELIMITER //
 CREATE TRIGGER TRG_TOTAL_SALES_REPORT_4

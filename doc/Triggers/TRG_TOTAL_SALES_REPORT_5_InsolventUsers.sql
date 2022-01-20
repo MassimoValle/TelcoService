@@ -1,4 +1,4 @@
-CREATE TABLE Sales_Report_5_InsolventUsers(User VARCHAR(45))
+CREATE TABLE Sales_Report_5_InsolventUsers(User VARCHAR(45), PRIMARY KEY(User))
 
 DELIMITER //
 CREATE TRIGGER TRG_TOTAL_SALES_REPORT_5_InsolventUsers

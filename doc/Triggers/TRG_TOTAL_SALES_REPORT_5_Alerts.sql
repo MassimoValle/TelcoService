@@ -1,4 +1,5 @@
-CREATE TABLE Sales_Report_5_Alerts(ReviewID INT)
+CREATE TABLE Sales_Report_5_Alerts(ReviewID INT, PRIMARY KEY(ReviewID))
+
 
 DELIMITER //
 CREATE TRIGGER TRG_TOTAL_SALES_REPORT_5_Alerts

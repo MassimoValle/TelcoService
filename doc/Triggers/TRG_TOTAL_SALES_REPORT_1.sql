@@ -1,4 +1,9 @@
-CREATE TABLE Sales_Report_1(ServicePackage VARCHAR(45), NumberTotalPurchases INT)
+CREATE TABLE Sales_Report_1(
+ServicePackage VARCHAR(45),
+NumberTotalPurchases INT,
+PRIMARY KEY(ServicePackage)
+);
+
 
 DELIMITER //
 CREATE TRIGGER TRG_TOTAL_SALES_REPORT_1
