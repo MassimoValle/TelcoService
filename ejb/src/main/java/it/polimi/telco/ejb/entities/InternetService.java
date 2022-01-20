@@ -1,12 +1,15 @@
 package it.polimi.telco.ejb.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@NamedQueries({
+        @NamedQuery(name = "InternetService.getAll",
+                query = "SELECT s FROM InternetService s")
+})
+
 @Entity
-public class InternetService{// extends Service{
+public class InternetService{ // extends Service{
     @Id
     @Column(name = "ServiceID", nullable = false)
     private Integer id;

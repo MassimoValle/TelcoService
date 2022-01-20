@@ -9,7 +9,9 @@ import java.util.Set;
 })
 
 @Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="Service")
+/*@MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)*/
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

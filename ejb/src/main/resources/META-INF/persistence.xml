@@ -4,47 +4,28 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
     <persistence-unit name="telco_persistence" transaction-type="JTA">
+
         <jta-data-source>db_Telco_DB2</jta-data-source>
         <class>it.polimi.telco.ejb.entities.User</class>
         <class>it.polimi.telco.ejb.entities.Service</class>
         <class>it.polimi.telco.ejb.entities.Period</class>
         <class>it.polimi.telco.ejb.entities.Product</class>
-        <class>it.polimi.telco.ejb.entities.Product</class>
-        <class>it.polimi.telco.ejb.entities.Subscription</class>
         <class>it.polimi.telco.ejb.entities.Order</class>
-        <class>it.polimi.telco.ejb.entities.Order</class>
-        <class>it.polimi.telco.ejb.entities.Subscription</class>
-        <class>it.polimi.telco.ejb.entities.Order</class>
-        <class>it.polimi.telco.ejb.entities.Service</class>
-        <class>it.polimi.telco.ejb.entities.Subscription</class>
         <class>it.polimi.telco.ejb.entities.Employee</class>
-        <class>it.polimi.telco.ejb.entities.Product</class>
-        <class>it.polimi.telco.ejb.entities.Period</class>
         <class>it.polimi.telco.ejb.entities.Review</class>
         <class>it.polimi.telco.ejb.entities.Subscription</class>
-        <class>it.polimi.telco.ejb.entities.Subscription</class>
         <class>it.polimi.telco.ejb.entities.PhoneService</class>
-        <class>it.polimi.telco.ejb.entities.Service</class>
-        <class>it.polimi.telco.ejb.entities.Service</class>
-        <class>it.polimi.telco.ejb.entities.Service</class>
-        <class>it.polimi.telco.ejb.entities.Service</class>
-        <class>it.polimi.telco.ejb.entities.Service</class>
-        <class>it.polimi.telco.ejb.entities.PhoneService</class>
-        <class>it.polimi.telco.ejb.entities.InternetService</class>
         <class>it.polimi.telco.ejb.entities.InternetService</class>
         <class>it.polimi.telco.ejb.entities.SalesReport1</class>
-        <class>it.polimi.telco.ejb.entities.SalesReport2Id</class>
         <class>it.polimi.telco.ejb.entities.SalesReport2</class>
         <class>it.polimi.telco.ejb.entities.SalesReport2Id</class>
-        <class>it.polimi.telco.ejb.entities.SalesReport2</class>
         <class>it.polimi.telco.ejb.entities.SalesReport3</class>
         <class>it.polimi.telco.ejb.entities.SalesReport4</class>
-        <class>it.polimi.telco.ejb.entities.SalesReport3</class>
         <class>it.polimi.telco.ejb.entities.SalesReport5Insolventuser</class>
         <class>it.polimi.telco.ejb.entities.SalesReport5Suspendedorder</class>
         <class>it.polimi.telco.ejb.entities.SalesReport5Alert</class>
         <class>it.polimi.telco.ejb.entities.SalesReport6</class>
         <class>it.polimi.telco.ejb.entities.ServicePackage</class>
-        <class>it.polimi.telco.ejb.entities.User</class>
     </persistence-unit>
+
 </persistence>

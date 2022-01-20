@@ -1,9 +1,12 @@
 package it.polimi.telco.ejb.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
+
+@NamedQueries({
+        @NamedQuery(name = "PhoneService.getAll",
+                query = "SELECT s FROM PhoneService s")
+})
 
 @Entity
 public class PhoneService{// extends Service{
