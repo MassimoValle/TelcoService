@@ -9,7 +9,7 @@ import java.io.IOException;
 
 @WebFilter(filterName = "Authentication")
 public class Authentication implements Filter {
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config) {
     }
 
     public void destroy() {

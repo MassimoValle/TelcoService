@@ -1,9 +1,10 @@
 package it.polimi.telco.web.controllers;
 
-import it.polimi.telco.ejb.entities.*;
+import it.polimi.telco.ejb.entities.Order;
+import it.polimi.telco.ejb.entities.Subscription;
+import it.polimi.telco.ejb.entities.User;
 import it.polimi.telco.ejb.exceptions.OrderException;
 import it.polimi.telco.ejb.services.OrderService;
-import it.polimi.telco.ejb.services.ServicePackageService;
 import it.polimi.telco.ejb.services.SubscriptionService;
 import it.polimi.telco.ejb.services.UserService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
@@ -11,13 +12,14 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.ejb.EJB;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @WebServlet(name = "PlaceOrder", value = "/PlaceOrder")
 public class PlaceOrder extends HttpServlet {
@@ -35,13 +37,13 @@ public class PlaceOrder extends HttpServlet {
 
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
     }
 
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
@@ -51,7 +53,7 @@ public class PlaceOrder extends HttpServlet {
         // coming from confirmPage.html
 
         // getting params
-        Integer idSubscription = Integer.parseInt(request.getParameter("idSubscription"));
+        int idSubscription = Integer.parseInt(request.getParameter("idSubscription"));
         String paymentAccepted = request.getParameter("paymentAccepted");
         String paymentRejected = request.getParameter("paymentRejected");
 

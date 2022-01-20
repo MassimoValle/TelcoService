@@ -9,12 +9,14 @@ import it.polimi.telco.ejb.services.ServicePackageService;
 import it.polimi.telco.ejb.services.SubscriptionService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
 
 import javax.ejb.EJB;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -36,12 +38,12 @@ public class SaveSubscription extends HttpServlet {
 
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
@@ -102,10 +104,4 @@ public class SaveSubscription extends HttpServlet {
         rd.forward(request, response);
     }
 
-    private void invalidParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ServletContext servletContext = getServletContext();
-        final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-        ctx.setVariable("errorMessage", "Invalid parameter");
-        templateEngine.process("/WEB-INF/buildSubscription.html", ctx, response.getWriter());
-    }
 }

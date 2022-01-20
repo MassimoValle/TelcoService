@@ -34,12 +34,12 @@ public class GoToHome extends HttpServlet {
     private ServiceManagementService serviceManagementService;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         // coming from CheckLogin servlet or index.html page (if user click on "skip and go to website")
 
@@ -82,7 +82,7 @@ public class GoToHome extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
     }
 }

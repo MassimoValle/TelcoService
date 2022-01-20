@@ -27,12 +27,12 @@ public class CheckLogin extends HttpServlet {
 
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
     }
 

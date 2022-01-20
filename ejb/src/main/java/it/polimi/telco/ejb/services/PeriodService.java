@@ -21,7 +21,7 @@ public class PeriodService {
     public List<Period> getAllPeriods() throws NoPeriodFoundException{
 
 
-        List<Period> periods = null;
+        List<Period> periods;
         try {
             periods = em.createNamedQuery("Period.getAll", Period.class)
                     .getResultList();

@@ -8,7 +8,6 @@ import org.thymeleaf.context.WebContext;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,18 +23,18 @@ public class ConfirmSubscription extends HttpServlet {
     private SubscriptionService subscriptionService;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
     }
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         // coming from SaveSubscription (default flow) or CheckLogin (user not logged) servlets or from home page (payment failed)
 

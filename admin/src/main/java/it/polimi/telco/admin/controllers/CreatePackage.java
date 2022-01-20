@@ -6,13 +6,14 @@ import it.polimi.telco.ejb.entities.ServicePackage;
 import it.polimi.telco.ejb.exceptions.NoProductFoundException;
 import it.polimi.telco.ejb.exceptions.NoServiceFoundException;
 import it.polimi.telco.ejb.services.ProductService;
-import it.polimi.telco.ejb.services.ServicePackageService;
 import it.polimi.telco.ejb.services.ServiceManagementService;
+import it.polimi.telco.ejb.services.ServicePackageService;
 
 import javax.ejb.EJB;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -34,12 +35,12 @@ public class CreatePackage extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        doPost(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String packageName = request.getParameter("packageName");
 

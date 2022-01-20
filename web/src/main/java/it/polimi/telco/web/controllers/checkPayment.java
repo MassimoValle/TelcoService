@@ -10,15 +10,13 @@ import it.polimi.telco.ejb.services.UserService;
 import it.polimi.telco.web.utils.ExternalService;
 import it.polimi.telco.web.utils.ThymeleafFactory;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
 
 import javax.ejb.EJB;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.Instant;
 
 @WebServlet(name = "CheckPayment", value = "/CheckPayment")
 public class CheckPayment extends HttpServlet {
@@ -38,18 +36,18 @@ public class CheckPayment extends HttpServlet {
     private ReviewService reviewService;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
     }
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         // coming from PlaceOrder servlet
 
@@ -98,10 +96,4 @@ public class CheckPayment extends HttpServlet {
     }
 
 
-    private void invalidParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ServletContext servletContext = getServletContext();
-        final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-        ctx.setVariable("errorMessage", "Invalid parameter");
-        templateEngine.process("/WEB-INF/home.html", ctx, response.getWriter());
-    }
 }

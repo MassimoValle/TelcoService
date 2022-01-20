@@ -19,7 +19,7 @@ public class ServiceManagementService {
 
 
     public List<Service> getAllServices() throws NoServiceFoundException {
-        List<Service> services = null;
+        List<Service> services;
         try {
             services = em.createNamedQuery("Service.getAll", Service.class)
                     .getResultList();

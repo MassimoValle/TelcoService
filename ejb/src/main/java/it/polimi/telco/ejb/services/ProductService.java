@@ -20,7 +20,7 @@ public class ProductService {
 
     public List<Product> getAllProducts() throws NoProductFoundException {
 
-        List<Product> products = null;
+        List<Product> products;
         try {
             products = em.createNamedQuery("Product.getAll", Product.class)
                     .getResultList();

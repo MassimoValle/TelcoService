@@ -18,7 +18,7 @@ public class EmployeeService {
     public EmployeeService(){}
 
     public Employee checkCredentials(String username, String password) throws CredentialsException {
-        List<Employee> employees = null;
+        List<Employee> employees;
         try {
             employees = em.createNamedQuery("Employee.checkCredentials", Employee.class)
                     .setParameter("usr", username)

@@ -22,7 +22,7 @@ public class OrderService {
     public OrderService() {}
 
     public List<Order> getRejected(User user) throws OrderException {
-        List<Order> rejected = null;
+        List<Order> rejected;
         try {
             rejected = em.createNamedQuery("Order.getRejectedOrders", Order.class)
                     .setParameter("usr", user)

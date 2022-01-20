@@ -4,9 +4,10 @@ import it.polimi.telco.ejb.entities.Product;
 import it.polimi.telco.ejb.services.ProductService;
 
 import javax.ejb.EJB;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 
@@ -17,12 +18,12 @@ public class CreateProduct extends HttpServlet {
     private ProductService productService;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        doPost(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String productDescription = request.getParameter("productDescription");
         BigDecimal monthlyFee = BigDecimal.valueOf(Double.parseDouble(request.getParameter("monthlyFee")));

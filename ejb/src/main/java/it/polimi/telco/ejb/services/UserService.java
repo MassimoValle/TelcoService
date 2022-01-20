@@ -38,7 +38,7 @@ public class UserService {
         return users.get(0);
     }
 
-    public User registerUser(String email, String username, String password) throws CredentialsException, AlreadyRegisteredException {
+    public void registerUser(String email, String username, String password) throws CredentialsException, AlreadyRegisteredException {
         List<User> user;
         try {
             user = em.createNamedQuery("User.getByUsername", User.class)
@@ -60,7 +60,6 @@ public class UserService {
         newUser.setStatus("ok");
 
         em.persist(newUser);
-        return newUser;
     }
 
 

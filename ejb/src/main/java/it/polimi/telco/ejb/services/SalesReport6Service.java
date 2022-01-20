@@ -1,8 +1,6 @@
 package it.polimi.telco.ejb.services;
 
-import it.polimi.telco.ejb.entities.SalesReport4;
 import it.polimi.telco.ejb.entities.SalesReport6;
-import it.polimi.telco.ejb.exceptions.NoProductFoundException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,7 +20,7 @@ public class SalesReport6Service {
 
     public List<SalesReport6> getAll() throws PersistenceException {
 
-        List<SalesReport6> report6s = null;
+        List<SalesReport6> report6s;
         try {
             report6s = em.createNamedQuery("SalesReport6.getAll", SalesReport6.class)
                     .getResultList();

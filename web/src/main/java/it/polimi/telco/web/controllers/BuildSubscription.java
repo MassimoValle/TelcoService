@@ -29,12 +29,12 @@ public class BuildSubscription extends HttpServlet {
     private PeriodService periodService;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         // coming from home.html
         ServletContext servletContext = getServletContext();
@@ -70,14 +70,8 @@ public class BuildSubscription extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
-    private void invalidParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ServletContext servletContext = getServletContext();
-        final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-        ctx.setVariable("errorMessage", "Invalid parameter");
-        templateEngine.process("/WEB-INF/buildSubscription.html", ctx, response.getWriter());
-    }
 }

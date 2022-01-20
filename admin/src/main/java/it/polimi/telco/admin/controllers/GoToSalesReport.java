@@ -2,15 +2,17 @@ package it.polimi.telco.admin.controllers;
 
 import it.polimi.telco.admin.utils.ThymeleafFactory;
 import it.polimi.telco.ejb.entities.*;
-import it.polimi.telco.ejb.exceptions.NoProductFoundException;
 import it.polimi.telco.ejb.services.*;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.ejb.EJB;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.persistence.PersistenceException;
+import javax.servlet.ServletContext;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,19 +46,19 @@ public class GoToSalesReport extends HttpServlet {
     private SalesReport6Service salesReport6Service;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
     }
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         // Number of total purchases per package
         List<SalesReport1> salesReport1s = null;
         try {
             salesReport1s = salesReport1Service.getAll();
-        } catch (NoProductFoundException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
         }
 
@@ -64,7 +66,7 @@ public class GoToSalesReport extends HttpServlet {
         List<SalesReport2> salesReport2s = null;
         try {
             salesReport2s = salesReport2Service.getAll();
-        } catch (NoProductFoundException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
         }
 
@@ -72,7 +74,7 @@ public class GoToSalesReport extends HttpServlet {
         List<SalesReport3> salesReport3s = null;
         try {
             salesReport3s = salesReport3Service.getAll();
-        } catch (NoProductFoundException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
         }
 
@@ -80,7 +82,7 @@ public class GoToSalesReport extends HttpServlet {
         List<SalesReport4> salesReport4s = null;
         try {
             salesReport4s = salesReport4Service.getAll();
-        } catch (NoProductFoundException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
         }
 
@@ -88,21 +90,21 @@ public class GoToSalesReport extends HttpServlet {
         List<SalesReport5Insolventuser> salesReport5Insolventusers = null;
         try {
             salesReport5Insolventusers = salesReport5InsolventusersService.getAll();
-        } catch (NoProductFoundException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
         }
 
         List<SalesReport5Suspendedorder> salesReport5Suspendedorders = null;
         try {
             salesReport5Suspendedorders = salesReport5SuspendedorderService.getAll();
-        } catch (NoProductFoundException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
         }
 
         List<SalesReport5Alert> salesReport5Alerts = null;
         try {
             salesReport5Alerts = salesReport5AlertService.getAll();
-        } catch (NoProductFoundException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
         }
 
@@ -110,7 +112,7 @@ public class GoToSalesReport extends HttpServlet {
         List<SalesReport6> salesReport6s = null;
         try {
             salesReport6s = salesReport6Service.getAll();
-        } catch (NoProductFoundException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
         }
 
@@ -131,7 +133,7 @@ public class GoToSalesReport extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        doGet(request, response);
     }
 }

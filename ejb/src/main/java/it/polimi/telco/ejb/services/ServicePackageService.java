@@ -21,7 +21,7 @@ public class ServicePackageService {
     public ServicePackageService (){}
 
     public List<ServicePackage> getServicePackages() throws NoServicePackageFoundException {
-        List<ServicePackage> servicePackages = null;
+        List<ServicePackage> servicePackages;
         try {
             servicePackages = em.createNamedQuery("ServicePackage.getAll", ServicePackage.class)
                     .getResultList();

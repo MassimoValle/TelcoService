@@ -1,8 +1,6 @@
 package it.polimi.telco.ejb.services;
 
-import it.polimi.telco.ejb.entities.SalesReport5Insolventuser;
 import it.polimi.telco.ejb.entities.SalesReport5Suspendedorder;
-import it.polimi.telco.ejb.exceptions.NoProductFoundException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,7 +20,7 @@ public class SalesReport5SuspendedorderService {
 
     public List<SalesReport5Suspendedorder> getAll() throws PersistenceException {
 
-        List<SalesReport5Suspendedorder> salesReport5Suspendedorders = null;
+        List<SalesReport5Suspendedorder> salesReport5Suspendedorders;
         try {
             salesReport5Suspendedorders = em.createNamedQuery("SalesReport5Suspendedorder.getAll", SalesReport5Suspendedorder.class)
                     .getResultList();

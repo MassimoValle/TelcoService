@@ -1,10 +1,8 @@
 package it.polimi.telco.admin.controllers;
 
 import it.polimi.telco.admin.utils.ThymeleafFactory;
-import it.polimi.telco.ejb.entities.Period;
 import it.polimi.telco.ejb.entities.Product;
 import it.polimi.telco.ejb.entities.Service;
-import it.polimi.telco.ejb.exceptions.NoPeriodFoundException;
 import it.polimi.telco.ejb.exceptions.NoProductFoundException;
 import it.polimi.telco.ejb.exceptions.NoServiceFoundException;
 import it.polimi.telco.ejb.services.PeriodService;
@@ -15,7 +13,6 @@ import org.thymeleaf.context.WebContext;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,12 +35,12 @@ public class GoToHome extends HttpServlet {
     private PeriodService periodService;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         this.templateEngine = ThymeleafFactory.create(getServletContext());
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         List<Service> services;
         List<Product> products;
@@ -78,7 +75,7 @@ public class GoToHome extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        doGet(request, response);
     }
 }
