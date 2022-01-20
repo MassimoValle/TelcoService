@@ -47,7 +47,6 @@ public class GoToHome extends HttpServlet {
 
         List<Service> services;
         List<Product> products;
-        List<Period> periods;
 
         // getting services
         try {
@@ -66,16 +65,6 @@ public class GoToHome extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not get products");
             return;
         }
-
-        // getting periods
-        try {
-
-            periods = periodService.getAllPeriods();
-        } catch (NoPeriodFoundException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not get periods");
-            return;
-        }
-
 
 
         ServletContext servletContext = getServletContext();

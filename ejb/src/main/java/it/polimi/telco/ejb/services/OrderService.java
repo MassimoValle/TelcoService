@@ -29,7 +29,7 @@ public class OrderService {
                     .getResultList();
         }
         catch (PersistenceException e) {
-            throw new OrderException("Could not get rejected orders");
+            throw new OrderException("Can't getting rejected orders");
         }
 
         return rejected;
@@ -45,7 +45,7 @@ public class OrderService {
                     .getResultList();
         }
         catch (PersistenceException e) {
-            throw new OrderException("Could not get rejected orders");
+            throw new OrderException("Can't getting orders");
         }
 
         if(orders.isEmpty())

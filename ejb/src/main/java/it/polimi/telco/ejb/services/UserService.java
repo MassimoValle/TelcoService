@@ -20,7 +20,7 @@ public class UserService {
     }
 
     public User checkCredentials(String username, String password) throws CredentialsException {
-        List<User> users = null;
+        List<User> users;
         try {
             users = em.createNamedQuery("User.checkCredentials", User.class)
                     .setParameter("usr", username)
@@ -39,7 +39,7 @@ public class UserService {
     }
 
     public User registerUser(String email, String username, String password) throws CredentialsException, AlreadyRegisteredException {
-        List<User> user = null;
+        List<User> user;
         try {
             user = em.createNamedQuery("User.getByUsername", User.class)
                     .setParameter("usr", username)
@@ -61,20 +61,6 @@ public class UserService {
 
         em.persist(newUser);
         return newUser;
-    }
-
-
-    public User getUserById(String username){
-
-        User user = em.find(User.class, username);
-
-        if (user == null) {
-            return null;
-        }
-
-        em.refresh(user);
-
-        return user;
     }
 
 

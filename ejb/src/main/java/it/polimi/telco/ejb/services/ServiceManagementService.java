@@ -25,7 +25,7 @@ public class ServiceManagementService {
                     .getResultList();
         }
         catch (PersistenceException e) {
-            throw new NoServiceFoundException("No ServicePackages Found");
+            throw new NoServiceFoundException("No service found");
         }
 
 

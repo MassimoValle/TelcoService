@@ -2,7 +2,7 @@
 <tomee>
     <Resource id="db_Telco_DB2" type="DataSource">
         JdbcDriver  com.mysql.cj.jdbc.Driver
-        JdbcUrl     jdbc:mysql://localhost:3306/db_Telco_DB2?serverTimezone=UTC <!--Replace with your own configuration-->
+        JdbcUrl     jdbc:mysql://localhost:3306/db_Telco_DB2?serverTimezone=Europe/Rome <!--Replace with your own configuration-->
         UserName    root <!--Replace with your own configuration-->
         Password    root1234 <!--Replace with your own configuration-->
     </Resource>

@@ -18,7 +18,7 @@ public class SalesReport5AlertService {
 
     public SalesReport5AlertService(){}
 
-    public List<SalesReport5Alert> getAll() throws NoProductFoundException {
+    public List<SalesReport5Alert> getAll() throws PersistenceException {
 
         List<SalesReport5Alert> salesReport5Alerts = null;
         try {
@@ -26,7 +26,7 @@ public class SalesReport5AlertService {
                     .getResultList();
         }
         catch (PersistenceException e) {
-            throw new NoProductFoundException("No report2s Found");
+            throw new PersistenceException("No report2s Found");
         }
 
         return salesReport5Alerts;

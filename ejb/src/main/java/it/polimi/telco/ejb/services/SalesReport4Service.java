@@ -18,7 +18,7 @@ public class SalesReport4Service {
 
     public SalesReport4Service(){}
 
-    public List<SalesReport4> getAll() throws NoProductFoundException {
+    public List<SalesReport4> getAll() throws PersistenceException {
 
         List<SalesReport4> report4s = null;
         try {
@@ -26,7 +26,7 @@ public class SalesReport4Service {
                     .getResultList();
         }
         catch (PersistenceException e) {
-            throw new NoProductFoundException("No report2s Found");
+            throw new PersistenceException("No report2s Found");
         }
 
         return report4s;

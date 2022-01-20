@@ -26,7 +26,7 @@ public class EmployeeService {
                     .getResultList();
         }
         catch (PersistenceException e) {
-            throw new CredentialsException("Could not verify credentials");
+            throw new CredentialsException("Can't verify credentials");
         }
 
         if (employees.size() != 1) {

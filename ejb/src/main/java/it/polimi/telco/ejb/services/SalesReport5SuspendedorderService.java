@@ -20,7 +20,7 @@ public class SalesReport5SuspendedorderService {
     public SalesReport5SuspendedorderService(){}
 
 
-    public List<SalesReport5Suspendedorder> getAll() throws NoProductFoundException {
+    public List<SalesReport5Suspendedorder> getAll() throws PersistenceException {
 
         List<SalesReport5Suspendedorder> salesReport5Suspendedorders = null;
         try {
@@ -28,7 +28,7 @@ public class SalesReport5SuspendedorderService {
                     .getResultList();
         }
         catch (PersistenceException e) {
-            throw new NoProductFoundException("No report2s Found");
+            throw new PersistenceException("No report2s Found");
         }
 
         return salesReport5Suspendedorders;
