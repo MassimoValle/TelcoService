@@ -13,11 +13,11 @@ FOR EACH ROW
 BEGIN
    	REPLACE INTO db_Telco_DB2.Sales_Report_3
   		SELECT DISTINCT ServicePackageID, SUM(TotalPrice), 
-						SUM(TotalPrice)-PeriodID * (SELECT COALESCE(SUM(MonthlyFee),0)
+						SUM(TotalPrice-PeriodID * (SELECT COALESCE(SUM(MonthlyFee),0)
    						FROM db_Telco_DB2.Product AS P JOIN db_Telco_DB2.SOP AS S
 						WHERE S.OptionalProductID = P.ID AND S.SubscriptionID = Subscription.ID
-						GROUP BY SubscriptionID)
+						GROUP BY SubscriptionID))
     		FROM db_Telco_DB2.Subscription
-    		GROUP BY ServicePackageID, PeriodID, ID;
+    		GROUP BY ServicePackageID;
 END;//
 DELIMITER ;
