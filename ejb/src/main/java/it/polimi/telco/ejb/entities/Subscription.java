@@ -86,7 +86,7 @@ public class Subscription {
 
     @JoinTable(name = "SOP", joinColumns = @JoinColumn(name = "SubscriptionID"),
             inverseJoinColumns = @JoinColumn(name = "OptionalProductID"))
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Product> productChosen;
 
     public Set<Product> getProductChosen() {

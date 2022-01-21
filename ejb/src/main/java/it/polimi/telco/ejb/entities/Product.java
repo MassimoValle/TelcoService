@@ -47,9 +47,9 @@ public class Product {
     }
 
     
-    @ManyToMany(mappedBy = "possibleProductsToAdd")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "possibleProductsToAdd")
     private Set<ServicePackage> packagesUseIt;
 
-    @ManyToMany(mappedBy = "productChosen")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "productChosen")
     private Set<Subscription> subscriptionsUseIt;
 }

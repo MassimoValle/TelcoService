@@ -55,12 +55,12 @@ public class ServicePackage {
 
     @JoinTable(name = "SPOP", joinColumns = @JoinColumn(name = "ServicePackageID"),
             inverseJoinColumns = @JoinColumn(name = "OptionalProductID"))
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Product> possibleProductsToAdd;
 
 
     @JoinTable(name = "SPS", joinColumns = @JoinColumn(name = "ServicePackageID"),
             inverseJoinColumns = @JoinColumn(name = "ServiceID"))
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Service> servicesInPackage;
 }

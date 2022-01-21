@@ -10,8 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="Service")
-/*@MappedSuperclass
-@Inheritance(strategy = InheritanceType.JOINED)*/
+/*@Inheritance(strategy = InheritanceType.JOINED)*/
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +38,6 @@ public class Service {
     }
 
 
-    @ManyToMany(mappedBy = "servicesInPackage")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "servicesInPackage")
     private Set<ServicePackage> packagesUseIt;
 }
